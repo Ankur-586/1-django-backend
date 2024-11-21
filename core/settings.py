@@ -161,10 +161,10 @@ AUTH_USER_MODEL = "user_auth.CustomUser"
 
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'core.custome_pagination.CustomPagination',
-    'DEFAULT_RENDERER_CLASSES': (
-        'rest_framework.renderers.JSONRenderer',
-    ),
-    # 'EXCEPTION_HANDLER': 'core.custom_handlers.custom_exception_handler',
+    # 'DEFAULT_RENDERER_CLASSES': (
+    #     'rest_framework.renderers.JSONRenderer',
+    # ),
+    'EXCEPTION_HANDLER': 'core.custom_handlers.custom_exception_handler',
     # 'DEFAULT_PERMISSION_CLASSES': (
     #     'rest_framework.permissions.IsAuthenticated',
     # ),

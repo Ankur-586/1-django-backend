@@ -5,7 +5,7 @@ from django.core.validators import RegexValidator
 class Category(models.Model):
     category_image  = models.ImageField(upload_to='category')
     category_name = models.CharField(max_length=50, unique=True, db_index=True, 
-                                     validators=[RegexValidator(r'^[a-zA-Z, ]+$', 'Category name must only contain alphabetic characters')])
+                                     validators=[RegexValidator(r'^[a-zA-Z,& ]+$', 'Category name must only contain alphabetic characters')])
     category_slug = models.SlugField(max_length=100, unique=True, db_index=True)
     description     = models.TextField(null=False, blank=False, default='')
     is_active       = models.BooleanField(default=True)
@@ -22,7 +22,7 @@ class Category(models.Model):
     
     class Meta:
         ordering = ['parent_category__id']
-        
+    
     def hide_all_subcategories(self) -> None:
         """
         -----
