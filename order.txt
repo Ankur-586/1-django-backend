@@ -1,0 +1,783 @@
+{
+    "cart": {
+        "object": "cart",
+        "id": "cart_01J5WQ95J1B350EHYACXEHEN2W",
+        "created_at": "2024-08-22T09:39:29.465Z",
+        "updated_at": "2024-08-22T09:39:29.465Z",
+        "deleted_at": null,
+        "email": null,
+        "billing_address_id": null,
+        "shipping_address_id": "addr_01J5WQ95J14Q02VP11W421S1KN",
+        "region_id": "reg_01HBJS9WBK5R58KD5NA233GFEW",
+        "customer_id": null,
+        "payment_id": null,
+        "type": "default",
+        "completed_at": null,
+        "payment_authorized_at": null,
+        "idempotency_key": null,
+        "context": {
+            "ip": "180.151.73.58",
+            "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36"
+        },
+        "metadata": null,
+        "sales_channel_id": "sc_01HAEJ81B1EDEQKP4A0WTTTXFZ",
+        "billing_address": null,
+        "discounts": [],
+        "gift_cards": [],
+        "items": [
+            {
+                "id": "item_01J5WQ95KSFZKTG158ESPN3EGY",
+                "created_at": "2024-08-22T09:39:29.465Z",
+                "updated_at": "2024-08-22T09:39:29.465Z",
+                "cart_id": "cart_01J5WQ95J1B350EHYACXEHEN2W",
+                "order_id": null,
+                "swap_id": null,
+                "claim_order_id": null,
+                "original_item_id": null,
+                "order_edit_id": null,
+                "title": "Sendha Namak",
+                "description": "Sendha Namak - 200 gm",
+                "thumbnail": "https://nourish-public-media.s3.amazonaws.com/spices-sendha-namak-656989032e438-1701761043976.webp",
+                "is_return": false,
+                "is_giftcard": false,
+                "should_merge": true,
+                "allow_discounts": true,
+                "has_shipping": false,
+                "unit_price": 2000,
+                "variant_id": "variant_01HEA7W9V4CYPJHS0SR2GB1FFE",
+                "quantity": 1,
+                "fulfilled_quantity": null,
+                "returned_quantity": null,
+                "shipped_quantity": null,
+                "metadata": {},
+                "adjustments": [],
+                "tax_lines": [
+                    {
+                        "rate": 0,
+                        "name": "No Tax",
+                        "code": "1002",
+                        "item_id": "item_01J5WQ95KSFZKTG158ESPN3EGY"
+                    }
+                ],
+                "variant": {
+                    "id": "variant_01HEA7W9V4CYPJHS0SR2GB1FFE",
+                    "created_at": "2023-11-03T09:22:57.605Z",
+                    "updated_at": "2024-08-12T11:50:55.173Z",
+                    "deleted_at": null,
+                    "title": "Sendha Namak - 200 gm",
+                    "product_id": "prod_01HEA7S1WT4WCC913J371R531C",
+                    "sku": null,
+                    "barcode": null,
+                    "ean": null,
+                    "upc": null,
+                    "variant_rank": 0,
+                    "inventory_quantity": 974,
+                    "allow_backorder": false,
+                    "manage_inventory": false,
+                    "hs_code": null,
+                    "origin_country": null,
+                    "mid_code": null,
+                    "material": null,
+                    "weight": null,
+                    "length": null,
+                    "height": null,
+                    "width": null,
+                    "metadata": {
+                        "weight": "200",
+                        "item_weight": "200 gm"
+                    },
+                    "thumbnail": null,
+                    "product": {
+                        "id": "prod_01HEA7S1WT4WCC913J371R531C",
+                        "created_at": "2023-11-03T09:21:10.893Z",
+                        "updated_at": "2024-07-02T05:54:58.671Z",
+                        "deleted_at": null,
+                        "title": "Sendha Namak",
+                        "subtitle": null,
+                        "description": "<p>Considered one of the healthiest forms of salt, in Ayurveda, the Sendha Namak or Pink Rock Salt is the purest type of salt that is devoid of any chemical components.</p><br>\n<p>It forms when water from a lake or sea evaporates and leaves behind sodium chloride crystals. It has many health benefits like treating colds and coughs, aiding in digestion and improving eyesight.</p><br>\n<h5>Key Benefits</h5>\n<ul>\n<li>Helps treat cough, cold and stomach conditions.</li>\n<li>Aids digestion</li>\n<li>May improve skin health</li>\n</ul><br>\n<h5>Nutritional value per 100 gm</h5>\n<ul>\n<li>Energy – 12.85 kcal</li>\n<li>Protein – 0.0 g</li>\n<li>Carbohydrates – 1.84 g</li>\n<li>Fat – 0.61 g</li>\n</ul><br>\n<h5>Storage</h5>\n<ul>\n<li>Keep in a cool and dry place.</li>\n<li>Keep it away from direct sunlight</li>\n<li>Store it in an airtight container to retain fragrance</li>\n</ul><br>\n<h5>Usage</h5>\n<ul>\n<li>You can add them to your regular meals as a substitute for your regular salt.</li>\n<li>It is also used commonly in many religious fast meals.</li>\n</ul>",
+                        "handle": "sendha-namak",
+                        "is_giftcard": false,
+                        "status": "published",
+                        "thumbnail": "https://nourish-public-media.s3.amazonaws.com/spices-sendha-namak-656989032e438-1701761043976.webp",
+                        "weight": null,
+                        "length": null,
+                        "height": null,
+                        "width": null,
+                        "hs_code": null,
+                        "origin_country": null,
+                        "mid_code": null,
+                        "material": null,
+                        "collection_id": "pcol_01HE7WCE7B9W4J61BVK08WXQXG",
+                        "type_id": null,
+                        "discountable": true,
+                        "external_id": null,
+                        "metadata": {
+                            "url": "https://nourish-v2-media-dev.s3.amazonaws.com/product-extra-images/spices/Nourish-Sendha-Namak.webp",
+                            "GifImg": "noimg",
+                            "rating": "4.3",
+                            "bgColor": "F8E7E7"
+                        },
+                        "profiles": [
+                            {
+                                "id": "sp_01HAEJ810ZRNABKDC5AK5FXE7V",
+                                "created_at": "2023-09-16T08:38:16.135Z",
+                                "updated_at": "2023-09-16T08:38:16.135Z",
+                                "deleted_at": null,
+                                "name": "Default Shipping Profile",
+                                "type": "default",
+                                "metadata": null
+                            }
+                        ],
+                        "profile": {
+                            "id": "sp_01HAEJ810ZRNABKDC5AK5FXE7V",
+                            "created_at": "2023-09-16T08:38:16.135Z",
+                            "updated_at": "2023-09-16T08:38:16.135Z",
+                            "deleted_at": null,
+                            "name": "Default Shipping Profile",
+                            "type": "default",
+                            "metadata": null
+                        },
+                        "profile_id": "sp_01HAEJ810ZRNABKDC5AK5FXE7V"
+                    }
+                },
+                "subtotal": 2000,
+                "discount_total": 0,
+                "total": 2000,
+                "original_total": 2000,
+                "original_tax_total": 0,
+                "tax_total": 0,
+                "raw_discount_total": 0
+            }
+        ],
+        "payment": null,
+        "payment_sessions": [],
+        "region": {
+            "id": "reg_01HBJS9WBK5R58KD5NA233GFEW",
+            "created_at": "2023-09-30T10:14:16.622Z",
+            "updated_at": "2023-10-16T06:57:45.879Z",
+            "deleted_at": null,
+            "name": "India",
+            "currency_code": "inr",
+            "tax_rate": 0,
+            "tax_code": null,
+            "gift_cards_taxable": true,
+            "automatic_taxes": true,
+            "tax_provider_id": null,
+            "metadata": {},
+            "countries": [
+                {
+                    "id": 102,
+                    "iso_2": "in",
+                    "iso_3": "ind",
+                    "num_code": 356,
+                    "name": "INDIA",
+                    "display_name": "India",
+                    "region_id": "reg_01HBJS9WBK5R58KD5NA233GFEW"
+                }
+            ],
+            "payment_providers": [
+                {
+                    "id": "razorpay-custom",
+                    "is_installed": true
+                }
+            ],
+            "tax_rates": [
+                {
+                    "id": "txr_01HEQ7H5MBENXAEZAHJWYKSVZ3",
+                    "created_at": "2023-11-08T10:27:00.364Z",
+                    "updated_at": "2023-11-08T10:27:00.364Z",
+                    "rate": 6,
+                    "code": "1000",
+                    "name": "CGST",
+                    "region_id": "reg_01HBJS9WBK5R58KD5NA233GFEW",
+                    "metadata": null
+                },
+                {
+                    "id": "txr_01HEQ7HPPV64JJF0HE9GEFC3HR",
+                    "created_at": "2023-11-08T10:27:17.853Z",
+                    "updated_at": "2023-11-08T10:27:17.853Z",
+                    "rate": 6,
+                    "code": "1001",
+                    "name": "SGST",
+                    "region_id": "reg_01HBJS9WBK5R58KD5NA233GFEW",
+                    "metadata": null
+                },
+                {
+                    "id": "txr_01HEQCCH5XVJV4AXYXMM66N52R",
+                    "created_at": "2023-11-08T11:51:51.229Z",
+                    "updated_at": "2023-11-08T11:51:51.229Z",
+                    "rate": 2.5,
+                    "code": "1003",
+                    "name": "CGST",
+                    "region_id": "reg_01HBJS9WBK5R58KD5NA233GFEW",
+                    "metadata": null
+                },
+                {
+                    "id": "txr_01HEQCDDZ8GVVPCHY5XP4KW9NS",
+                    "created_at": "2023-11-08T11:52:20.713Z",
+                    "updated_at": "2023-11-08T11:52:20.713Z",
+                    "rate": 2.5,
+                    "code": "1004",
+                    "name": "SGST",
+                    "region_id": "reg_01HBJS9WBK5R58KD5NA233GFEW",
+                    "metadata": null
+                },
+                {
+                    "id": "txr_01HESDABV8XSG7G7HWMC2FZQ52",
+                    "created_at": "2023-11-09T06:46:37.674Z",
+                    "updated_at": "2023-12-28T08:53:33.614Z",
+                    "rate": 0,
+                    "code": "1002",
+                    "name": "No Tax",
+                    "region_id": "reg_01HBJS9WBK5R58KD5NA233GFEW",
+                    "metadata": null
+                }
+            ]
+        },
+        "sales_channel": {
+            "id": "sc_01HAEJ81B1EDEQKP4A0WTTTXFZ",
+            "created_at": "2023-09-16T08:38:16.135Z",
+            "updated_at": "2023-09-16T08:38:16.135Z",
+            "deleted_at": null,
+            "name": "Default Sales Channel",
+            "description": "Created by Medusa",
+            "is_disabled": false,
+            "metadata": null
+        },
+        "shipping_address": {
+            "id": "addr_01J5WQ95J14Q02VP11W421S1KN",
+            "created_at": "2024-08-22T09:39:29.465Z",
+            "updated_at": "2024-08-22T09:39:29.465Z",
+            "deleted_at": null,
+            "customer_id": null,
+            "company": null,
+            "first_name": null,
+            "last_name": null,
+            "address_1": null,
+            "address_2": null,
+            "city": null,
+            "country_code": "in",
+            "province": null,
+            "postal_code": null,
+            "phone": null,
+            "metadata": null
+        },
+        "shipping_methods": [],
+        "subtotal": 2000,
+        "discount_total": 0,
+        "item_tax_total": 0,
+        "shipping_total": 0,
+        "shipping_tax_total": 0,
+        "tax_total": 0,
+        "gift_card_total": 0,
+        "gift_card_tax_total": 0,
+        "total": 2000
+    }
+}
+--------------------------------------------------
+class CartItemPostSerializer(serializers.ModelSerializer):
+    variant = serializers.SerializerMethodField()
+    variant_id = serializers.PrimaryKeyRelatedField(queryset=ProductVariants.objects.all(), write_only=True)
+
+    
+    class Meta:
+        model = CartItem
+        fields = ['variant_id','variant','quantity']
+
+    def get_variant(self, obj):
+        '''
+        obj : cart_item_id
+        '''
+        product_variant = obj.variant
+        
+        variant_name = product_variant.variant_name
+        thumbnail = product_variant.images.first().image.url if product_variant.images.exists() else None
+
+        return {
+            'id': product_variant.pk,
+            'variant_title': variant_name,
+            'thumbnail': thumbnail
+            
+        }
+    
+    def validate_quantity(self, value):
+        if value is None:
+            raise CustomValidation("Quantity is required")
+        if value < 1:
+            raise CustomValidation("Quantity must be at least 1.")
+        elif value > 5:
+            raise CustomValidation("Quantity can't be at more than 5")
+        return value
+    
+    def to_internal_value(self, data):
+        variant_id = data.get('variant_id')
+        if not ProductVariants.objects.filter(pk=variant_id).exists():
+            raise CustomValidation("No product with the given id was found")
+        return super().to_internal_value(data)
+    
+    def validate(self, data):
+        variant_id = data.get('variant_id')
+        variant = ProductVariants.objects.get(pk=variant_id.pk)
+        if variant.availability_status == False:
+            raise CustomValidation("The selected variant is out of stock.")
+        return data
+
+    def create(self, validated_data):
+        request = self.context['request']
+        user = request.user if request.user.is_authenticated else None
+
+        cart, created = Cart.objects.get_or_create(user=user)
+
+        cart_items = []
+
+        variant = validated_data.pop('variant_id')  # Retrieve and remove variant_id from item_data
+        validated_data['cart_id'] = cart
+        validated_data['variant'] = variant
+        validated_data['price'] = validated_data.get('price', variant.price)
+        
+        cart_item = CartItem(**validated_data)
+        cart_items.append(cart_item)
+
+        CartItem.objects.bulk_create(cart_items)
+        return cart_items
+------------------------------------------------------------------------
+from rest_framework import serializers
+from .models import Cart, CartItem
+from product.models import ProductVariants
+from django.utils import timezone
+
+from core.utils import CustomValidation
+
+class CartItemSerializer(serializers.ModelSerializer):
+    variant = serializers.SerializerMethodField()
+    variant_id = serializers.PrimaryKeyRelatedField(queryset=ProductVariants.objects.all(), write_only=True)
+    # quantity = serializers.IntegerField()
+
+    class Meta:
+        model = CartItem
+        fields = ['variant_id','variant','quantity']
+    
+    def get_variant(self, obj):
+        '''
+        obj : cart_item_id
+        '''
+        product_variant = obj[0].variant
+        variant_name = product_variant.variant_name
+        thumbnail = product_variant.images.first().image.url if product_variant.images.exists() else None
+
+        return {
+            'id': product_variant.pk,
+            'variant_title': variant_name,
+            'thumbnail': thumbnail
+        }
+
+class CartItemPostSerializer(serializers.ModelSerializer):
+    variant = serializers.SerializerMethodField()
+    variant_id = serializers.PrimaryKeyRelatedField(queryset=ProductVariants.objects.all(), write_only=True)
+    cart_id = serializers.UUIDField(read_only=True)
+    quantity = serializers.IntegerField(required=False)
+    price = serializers.IntegerField(required=False)
+    
+    class Meta:
+        model = CartItem
+        fields = ['cart_id', 'variant_id', 'variant', 'quantity','price']
+
+    def get_variant(self, obj):
+        '''
+        obj : cart_item_id
+        '''
+        product_variant = obj.variant
+        variant_name = product_variant.variant_name
+        thumbnail = product_variant.images.first().image.url if product_variant.images.exists() else None
+
+        return {
+            'id': product_variant.pk,
+            'variant_title': variant_name,
+            'thumbnail': thumbnail
+        }
+    
+    def validate_quantity(self, value):
+        if value is None:
+            raise CustomValidation("Quantity is required")
+        if value < 1:
+            raise CustomValidation("Quantity must be at least 1.")
+        elif value > 5:
+            raise CustomValidation("Quantity can't be at more than 5")
+        return value
+    
+    def to_internal_value(self, data):
+        variant_id = data.get('variant_id')
+        if not ProductVariants.objects.filter(pk=variant_id).exists():
+            raise CustomValidation("No product with the given id was found")
+        return super().to_internal_value(data)
+    
+    def validate(self, data):
+        variant_id = data.get('variant_id')
+        variant = ProductVariants.objects.get(pk=variant_id.pk)
+        if variant.availability_status == False:
+            raise CustomValidation("The selected variant is out of stock.")
+        return data
+
+    def create(self, validated_data):
+        request = self.context['request']
+        user = request.user if request.user.is_authenticated else None
+
+        cart, created = Cart.objects.get_or_create(user=user)
+
+        cart_items = []
+
+        variant = validated_data.pop('variant_id')  # Retrieve and remove variant_id from item_data
+        validated_data['cart_id'] = cart
+        validated_data['variant'] = variant
+        validated_data['price'] = validated_data.get('price', variant.price)
+        
+        cart_item = CartItem(**validated_data)
+        cart_items.append(cart_item)
+
+        CartItem.objects.bulk_create(cart_items)
+        return cart_items
+    
+class CartSerializer(serializers.ModelSerializer):
+    cart_items = CartItemSerializer(many=True)
+    user = serializers.SerializerMethodField()
+    created_at = serializers.SerializerMethodField()
+    
+    class Meta:
+        model = Cart
+        fields = ['cart_id', 'created_at', 'updated_at', 'user','cart_items']
+    
+    def get_created_at(self, obj):
+        """
+        This function converts timestamp in ISO 8601 format to a properly formatted datetime string.
+        """
+        if obj.created_at:
+            local_time = timezone.localtime(obj.created_at)
+            return local_time.strftime('%Y-%m-%d %H:%M:%S')
+        return 'None'
+    
+    def get_user(self, obj):
+        user_info = obj.user
+        if user_info:
+          return {
+            'id': user_info.id,
+            'user_name': user_info.username,
+          }
+        return None
+      
+# for product images we need to use reverse relationship      
+
+'''
+------------------------------------------------------
+def create(self, validated_data):
+        request = self.context['request']
+        user = request.user if request.user.is_authenticated else None
+
+        # Get or create the cart
+        if user is None:
+            session = request.session
+            cart_id = session.get('cart_id', None)
+            if cart_id:
+                cart = Cart.objects.get(cart_id=cart_id)
+            else:
+                cart = Cart.objects.create()
+                session['cart_id'] = str(cart.cart_id)
+        else:
+            cart, created = Cart.objects.get_or_create(user=user)
+
+        # Initialize a list to hold the CartItem instances
+        cart_items = []
+
+        # Handle both single object and list of objects
+        if isinstance(validated_data, dict):
+            item_data = validated_data
+            variant_id = item_data.pop('variant_id')
+            variant = ProductVariants.objects.get(pk=variant_id)  # Correctly get variant by ID
+            item_data['cart_id'] = cart
+            item_data['variant'] = variant
+            item_data['price'] = item_data.get('price', variant.price)
+            cart_item = CartItem(**item_data)
+            cart_items.append(cart_item)
+        elif isinstance(validated_data, list):
+            for item_data in validated_data:
+                if isinstance(item_data, dict):
+                    variant_id = item_data.pop('variant_id')
+                    variant = ProductVariants.objects.get(pk=variant_id)  # Correctly get variant by ID
+                    item_data['cart_id'] = cart
+                    item_data['variant'] = variant
+                    item_data['price'] = item_data.get('price', variant.price)
+                    cart_item = CartItem(**item_data)
+                    cart_items.append(cart_item)
+                else:
+                    raise ValueError(f"Expected dict, got {type(item_data)}")
+        else:
+            raise ValueError("Expected validated_data to be a dict or list of dicts.")
+
+        # Bulk create the CartItem instances
+        CartItem.objects.bulk_create(cart_items)
+        return cart_items
+------------------------------------------------------
+in this what is happening is 
+{
+  "items": [
+    {
+      "variant_id": 1,  // Replace with actual variant ID
+      "quantity": 1
+    },
+    {
+       "variant_id": 3,  // Replace with actual variant ID
+      "quantity": 4
+    }
+  ]
+}
+
+def create(self, validated_data):
+        request = self.context['request']
+        user = request.user if request.user.is_authenticated else None # user is none currently 
+        print('coming from serializers',user)
+        if user is None:
+            session = request.session
+            cart_id = session.get('cart_id', None)
+            if cart_id:
+                cart = Cart.objects.get(cart_id=cart_id)
+            else:
+                cart = Cart.objects.create()
+                session['cart_id'] = str(cart.cart_id)
+        else:
+            cart, created = Cart.objects.get_or_create(user=user)
+        # Fetch the variant instance from validated data
+        variant = validated_data.pop('variant_id')  # Retrieve and remove variant_id from validated_data
+        validated_data['cart_id'] = cart
+        validated_data['variant'] = variant
+        validated_data['price'] = validated_data.get('price', variant.price)
+        
+        cart_item = CartItem.objects.create(**validated_data)
+        return cart_item
+'''
+# [
+#     {
+#         "status": 201,
+#         "message": "Cart Item Created Successfully",
+#         "data": {
+#             "variant": {
+#                 "id": 1,
+#                 "variant_title": "Samsung s24 ultra - 64 gb",
+#                 "thumbnail": "/media/products/2024/07/19/atta_5kg_back_eYYYo9e.webp"
+#             },
+#             "quantity": 1
+#         }
+#     },
+#     {
+#         "status": 201,
+#         "message": "Cart Item Created Successfully",
+#         "data": {
+#             "variant": {
+#                 "id": 3,
+#                 "variant_title": "Samsung Ultra TV HD",
+#                 "thumbnail": "/media/products/2024/07/21/download.jpg"
+#             },
+#             "quantity": 4
+#         }
+#     }
+# ]
+
+# class CartItemSerializer(serializers.ModelSerializer):
+#     variant = serializers.SerializerMethodField()
+#     variant_id = serializers.PrimaryKeyRelatedField(queryset=ProductVariants.objects.all(), write_only=True)
+    
+#     class Meta:
+#         model = CartItem
+#         fields = ['variant_id','variant','quantity']
+    
+#     def get_variant(self, obj):
+#         '''
+#         obj : cart_item_id
+#         '''
+#         product_variant = obj.variant
+#         variant_name = product_variant.variant_name
+#         thumbnail = product_variant.images.first().image.url if product_variant.images.exists() else None
+
+#         return {
+#             'id': product_variant.pk,
+#             'variant_title': variant_name,
+#             'thumbnail': thumbnail
+#         }
+    
+#     def validate(self, data):
+#         quantity = data.get('quantity')
+#         if quantity < 1:
+#             raise serializers.ValidationError("Quantity must be at least 1.")
+#         elif quantity > 5:
+#             raise serializers.ValidationError("Quantity can't be at more than 5")
+#         return data
+    
+#     def create(self, validated_data):
+#         request = self.context['request']
+#         user = request.user if request.user.is_authenticated else None
+#         if user is None:
+#             session = request.session
+#             cart_id = session.get('cart_id', None)
+#             if cart_id:
+#                 cart = Cart.objects.get(cart_id=cart_id)
+#             else:
+#                 cart = Cart.objects.create()
+#                 session['cart_id'] = str(cart.cart_id)
+#         else:
+#             cart, created = Cart.objects.get_or_create(user=user)
+            
+#         # Fetch the variant instance from validated data
+#         variant = validated_data.pop('variant_id')  # Retrieve and remove variant_id from validated_data
+#         validated_data['cart_id'] = cart
+#         validated_data['variant'] = variant
+#         validated_data['price'] = validated_data.get('price', variant.price)
+        
+#         cart_item = CartItem.objects.create(**validated_data)
+#         return cart_item
+      
+# class CartItemViewSet(viewsets.ModelViewSet):
+#     queryset = CartItem.objects.all()
+#     serializer_class = CartItemSerializer 
+            
+#     def create(self, request, *args, **kwargs):
+#         try:
+#             serializer = self.get_serializer(data=request.data)
+#             if serializer.is_valid():
+#                 self.perform_create(serializer)
+#                 headers = self.get_success_headers(serializer.data)
+#                 return Response({
+#                     "status": status.HTTP_201_CREATED,
+#                     "message": 'Cart Item Created Successfully',
+#                     "data": serializer.data
+#                 }, status=status.HTTP_201_CREATED, headers=headers)
+#             return Response({
+#                 "status": status.HTTP_400_BAD_REQUEST,
+#                 "message": serializer.errors,
+#                 "data": []
+#             }, status=status.HTTP_400_BAD_REQUEST)
+#         except Exception as e:
+#             return Response({
+#             "status": status.HTTP_400_BAD_REQUEST,
+#             "message": str(e),
+#             "data": []
+#         }, status=status.HTTP_400_BAD_REQUEST)
+            
+# currently i can post only 1 object but cart can hold n numbers of items.
+
+# {
+#     "region_id": "reg_01HBJS9WBK5R58KD5NA233GFEW",
+#     "items": [{
+#         "variant_id": "variant_01HESE42AJKPMD3H8A7YK0FWKE",
+#         "quantity": 1
+#     }]
+# }
+# i dont have region id in my db. i will add later. but for future
+# please make some provision that i can add it later
+
+-------------------------------------------
+from rest_framework import viewsets, status, generics
+from rest_framework.response import Response
+# from rest_framework.permissions import IsAuthenticated
+
+from .models import Cart, CartItem
+from .serializers import CartSerializer, CartItemSerializer, CartItemPostSerializer
+from user_auth.authentication import IsAuthenticated
+
+class CartViewSet(generics.RetrieveAPIView):
+    queryset = Cart.objects.all()
+    serializer_class = CartSerializer 
+    lookup_field = 'cart_id'
+    
+    def retrieve(self, request, *args, **kwargs):
+        try:
+            # Get the object based on the primary key provided in the URL
+            instance = self.get_object()
+            serializer = self.get_serializer(instance)
+            payload = {
+                "status": status.HTTP_200_OK,
+                "message": 'Cart Detail',
+                "data": serializer.data
+            }
+            return Response(payload, status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response({
+                "status": status.HTTP_400_BAD_REQUEST,
+                "message": str(e),
+                "data": []
+            }, status=status.HTTP_400_BAD_REQUEST)
+
+class CartItemViewSet(generics.RetrieveAPIView):
+    queryset = CartItem.objects.all()
+    serializer_class = CartItemSerializer 
+    # authentication_classes = [IsAuthenticated]
+    # http_method_names = ['get']
+    
+    def list(self, request, *args, **kwargs):
+        try:
+            queryset = self.filter_queryset(self.get_queryset())
+            page = self.paginate_queryset(queryset)
+            if page is not None:
+                serializer = self.get_serializer(page, many=True)
+                result = self.get_paginated_response(serializer.data)
+                data = result.data # pagination data
+            else:
+                serializer = self.get_serializer(queryset, many=True)
+                data = serializer.data
+            payload = {
+                "status": status.HTTP_200_OK, 
+                "message": 'All Cart Details', 
+                "data": data
+            }
+            return Response(payload ,status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response({
+                "status": status.HTTP_400_BAD_REQUEST,
+                "message": str(e),
+                "data": []
+            }, status=status.HTTP_400_BAD_REQUEST)
+
+class CartItemPostSet(viewsets.ModelViewSet):
+    queryset = CartItem.objects.all()
+    serializer_class = CartItemPostSerializer 
+    
+    def create(self, request, *args, **kwargs):
+        try:
+            items_data = request.data.get('items',[])
+            print('Coming From views',items_data)
+            serializer = self.get_serializer(data=items_data, many=True, context={'request': request})
+            if serializer.is_valid():
+                self.perform_create(serializer)
+                headers = self.get_success_headers(serializer.data)
+                return Response({
+                    "status": status.HTTP_201_CREATED,
+                    "message": 'Cart Items Created Successfully',
+                    "data": serializer.data
+                }, status=status.HTTP_201_CREATED, headers=headers)
+            return Response({
+                "status": status.HTTP_400_BAD_REQUEST,
+                "message": serializer.errors,
+                "data": [{}]
+            }, status=status.HTTP_400_BAD_REQUEST)
+        except Exception as e:
+            return Response({
+                "status": status.HTTP_400_BAD_REQUEST,
+                "message": str(e),
+                "data": []
+            }, status=status.HTTP_400_BAD_REQUEST)
+    
+    def get_success_headers(self, data):
+        # Helper method to get headers for the response (if needed)
+        return {}
+
+# task is to figure out
+# when ever i initialize cart only one cart id is getting created everytime
+
+'''
+in drf, if suppose i have a ecommerce website and a guest user is creating a cart,
+then where should that cart id be stored? If suppose in django sessions.
+then how can the front end guy fetch that cart id?
+
+and if i am using jwt token then the session is required?
+
+if suppose i am making the api and cart id is generated and i don't want to 
+save it in seesion storeage. then wehere to save the token. the front end 
+guy is not invlolved right now
+'''

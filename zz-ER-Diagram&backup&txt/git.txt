@@ -1,0 +1,97 @@
+git config --global user.name "Ankur586"
+git config --global user.email "ankur.singh586@gmail.com"
+
+git init
+git add .
+git status
+git remote add origin https://github.com/Ankur-586/BlogTest.git
+git checkout -b test
+git push -u origin test
+
+TO UPDATE:
+git add .
+git commit -m "added new task"
+git push -u origin test
+
+git config --global --add safe.directory
+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
+…or create a new repository on the command line
+echo "# QrcodeTest" >> README.md
+git init
+git add .
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/Ankur-586/QrCodeAPI.git
+git push -u origin main
+git pull origin main --allow-unrelated-histories 
+
+or push an existing repository from the command line
+git remote add origin https://github.com/Ankur-586/QrcodeTest.git
+git branch -M main
+git push -u origin main
+--------------------------------------------------------
+git commit -m "Initial Commit"
+git pull https://github.com/Ankur-586/QrCodeApi.git
+git add .
+git remote add origin https://github.com/Ankur-586/Emailer.git
+git checkout -b main
+git checkout main       ********************
+git push -u origin test
+------------------------------------------------------
+-------
+AWS : 
+-------
+ssh ubuntu@3.111.213.201
+ls
+systemctl stop nginx
+
+---------------------------------------------
+git init
+git add .
+git status
+git commit -m "initial commit"
+git checkout -b main
+git remote add origin https://github.com/Ankur-586/django_proj.git
+git pull --rebase origin main
+git push origin main
+git branch --delete <branchname>
+---------------------------------------------
+byobu
+
+rolebaseddb
+
+db_user_role user
+rolebaseddb  dbname
+
+rolebaseddb=>
+select * from testapp_custuser where false;
+gunicorn --bind 0.0.0.0:8000 RoleBasedUser.wsgi
+
+[Unit]
+Description=gunicorn daemon
+Requires=gunicorn.socket
+After=network.target
+
+[Service]
+User=ubuntu
+Group=www-data
+WorkingDirectory=/home/ubuntu/RolebasedUser/RoleBasedUser
+ExecStart=/home/ubuntu/RolebasedUser/RoleBasedUser/venv/bin/gunicorn \
+          --access-logfile - \
+          --workers 3 \
+          --bind unix:/run/gunicorn.sock \
+          RoleBasedUser.wsgi:application
+
+[Install]
+WantedBy=multi-user.target
+
+
+sudo systemctl start gunicorn.socket
+sudo systemctl enable gunicorn.socket
+O/P after running above 2 commonds 
+Created symlink /etc/systemd/system/sockets.target.wants/gunicorn.socket → /etc/systemd/system/gunicorn.socket.
+
+RolebasedUser/
+
+
+git checkout  development_1

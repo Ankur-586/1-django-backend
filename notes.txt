@@ -1,0 +1,128 @@
+Steps to setup the project
+
+Step 1: First create a virtual env file:
+        python -m venv venv
+
+Step 2: Activate virtual env in windows:
+        venv/Scripts/activate
+        
+        For Ubuntu/linux:
+        source venv/bin/activate
+
+Step 3: Run the below commond to install the packages
+        pip install -r requirements.txt
+
+        below packages will get installed:
+        1. pip install pandas
+        2. pip install fake-useragent
+        3. pip install selenium
+
+Step 4: Run the script:
+        python email_script.py
+
+** To Make requirements.txt file run below commond:
+   pip freeze > requirements.txt
+    
+https://www.creative-tim.com/product/material-dashboard-django#
+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
+
+https://medium.com/django-rest/django-rest-framework-login-and-register-user-fd91cf6029d5
+
+https://www.youtube.com/watch?v=Vv5069f93UE
+
+youtube-course-free-full-stack-course-django-backend
+https://github.com/vandadnp/youtube-course-free-full-stack-course-django-backend
+
+----------------------------------------------------------------------------------------
+
+# python manage.py shell      
+# from user_profile.models import User_Address
+# User_Address.objects.all().delete()
+
+Few Points to remeber:
+1. In the product model each preoduct will have a variant. 
+   suppose if a product has only 1 kg of iteself, then that 1 kg 
+   will consider as a variant and Never as a single product
+
+how to build schema diagram of my django project on windows
+python manage.py inspectdb > models.py
+
+Do not delete
+-------------
+--> google text: dummy ecommerce api response
+
+some tools
+-----------
+-> automa
+
+
+how do i customize my simple jwt token django rest framework response:
+----------------------------------------------------------------------
+https://medium.com/codex/django-rest-framework-custom-jwt-authentication-backend-17bbd178b4fd
+
+
+first() is a convenience method in django
+
+https://howdns.works/
+https://learnsoftwarearchitecture.com/all-courses
+
+
+https://dev.to/ezzdinatef/ecommerce-database-design-1ggc
+
+https://dbdiagram.io/d/eCommerce-Database-Design-65521cb47d8bbd6465131f01
+
+
+how do i bind a cart to a user drf
+
+https://medium.com/@stevelukis/online-shop-with-django-and-react-shopping-cart-9e4f23ce1856
+
+https://www.freedium.cfd/https://medium.com/@stevelukis/online-shop-with-django-and-react-shopping-cart-9e4f23ce1856
+
+Find and Replace Data in Excel with Python (A Comprehensive Guide)
+https://medium.com/@alice.yang_10652/find-and-replace-data-in-excel-with-python-a-comprehensive-guide-3b8a9a2ada51
+
+22 Python One-Liners That Every Programmer Should Know
+https://levelup.gitconnected.com/22-python-one-liners-that-every-programmer-should-know-3afd4dca1ea0
+free-medium:
+https://www.freedium.cfd/https://levelup.gitconnected.com/22-python-one-liners-that-every-programmer-should-know-3afd4dca1ea0
+
+
+validatoon error import drf serializer
+https://stackoverflow.com/questions/33475334/django-rest-framework-how-to-specify-error-code-when-raising-validation-error-in
+
+
+https://github.com/kritebh/ecommerce-django-react
+https://github.com/kritebh/ecommerce-django-react.git
+
+
+how to integrate paypal payment gateway in django drf application
+
+# paypal_helper.py
+
+import paypalrestsdk
+from django.conf import settings
+
+paypalrestsdk.configure({
+    "mode": settings.PAYPAL_MODE,  # 'sandbox' or 'live'
+    "client_id": settings.PAYPAL_CLIENT_ID,
+    "client_secret": settings.PAYPAL_SECRET
+})
+
+https://www.youtube.com/watch?v=o367cP63A7g
+
+payment method paypal django rest framework
+
+points:
+need a common logic for all the serializer.error meaning
+a common structure for all error messages
+
+implement a endpoint when cart is created with some items ans then we add anotheritem to the cart
+
+cart_item_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+cart_item_id = models.CharField(max_length=20, primary_key=True, unique=True, editable=False) 
+
+cart_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+cart_item_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+
+# python .\manage.py dumpdata > D:\website\backend\db_backup.json
+# python manage.py loaddata D:\website\backend\db_backup.json

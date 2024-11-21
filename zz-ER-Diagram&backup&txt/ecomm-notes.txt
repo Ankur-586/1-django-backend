@@ -1,0 +1,415 @@
+Full-Fledged eCommerce Website ERD
+1. User
+user_id (Primary Key)
+username
+password
+email
+first_name
+last_name
+phone_number
+address
+registration_date
+is_admin (Boolean)
+
+2. Category
+category_id (Primary Key)
+name
+description
+parent_category_id (Self-referencing Foreign Key)
+
+3. Product
+product_id (Primary Key)
+name
+description
+price
+stock_quantity
+category_id (Foreign Key)
+supplier_id (Foreign Key)
+image_url
+is_active (Boolean)
+
+4. Supplier
+supplier_id (Primary Key)
+name
+contact_info
+address
+
+5. Order
+order_id (Primary Key)
+user_id (Foreign Key)
+order_date
+status
+total_amount
+shipping_address
+payment_method
+
+6. OrderItem
+order_item_id (Primary Key)
+order_id (Foreign Key)
+product_id (Foreign Key)
+quantity
+price
+
+7. Cart
+cart_id (Primary Key)
+user_id (Foreign Key)
+created_date
+
+8. CartItem
+cart_item_id (Primary Key)
+cart_id (Foreign Key)
+product_id (Foreign Key)
+quantity
+
+9. Review
+review_id (Primary Key)
+product_id (Foreign Key)
+user_id (Foreign Key)
+rating
+comment
+review_date
+
+10. Payment
+payment_id (Primary Key)
+order_id (Foreign Key)
+payment_date
+amount
+payment_method
+
+11. Shipping
+shipping_id (Primary Key)
+order_id (Foreign Key)
+shipping_method
+tracking_number
+shipping_date
+delivery_date
+
+12. Wishlist
+wishlist_id (Primary Key)
+user_id (Foreign Key)
+created_date
+
+13. WishlistItem
+wishlist_item_id (Primary Key)
+wishlist_id (Foreign Key)
+product_id (Foreign Key)
+
+14. Coupon
+coupon_id (Primary Key)
+code
+discount_percentage
+start_date
+end_date
+usage_limit
+
+15. OrderCoupon
+order_coupon_id (Primary Key)
+order_id (Foreign Key)
+coupon_id (Foreign Key)
+discount_amount
+
+16. ReturnRequest
+return_request_id (Primary Key)
+order_item_id (Foreign Key)
+user_id (Foreign Key)
+request_date
+reason
+status
+-----------------------------------------------------------------------
+Relationship diagram:
+
+User
+|---- user_id (PK)
+|---- username
+|---- password
+|---- email
+|---- first_name
+|---- last_name
+|---- phone_number
+|---- address
+|---- registration_date
+|---- is_admin (Boolean)
+
+User 1 ---- n Order
+Order
+|---- order_id (PK)
+|---- user_id (FK)
+|---- order_date
+|---- status
+|---- total_amount
+|---- shipping_address
+|---- payment_method
+
+Order 1 ---- n OrderItem
+OrderItem
+|---- order_item_id (PK)
+|---- order_id (FK)
+|---- product_id (FK)
+|---- quantity
+|---- price
+
+Product
+|---- product_id (PK)
+|---- name
+|---- description
+|---- price
+|---- stock_quantity
+|---- category_id (FK)
+|---- supplier_id (FK)
+|---- image_url
+|---- is_active (Boolean)
+
+Category 1 ---- n Product
+Category
+|---- category_id (PK)
+|---- name
+|---- description
+|---- parent_category_id (FK, Self-reference)
+
+Supplier 1 ---- n Product
+Supplier
+|---- supplier_id (PK)
+|---- name
+|---- contact_info
+|---- address
+
+Product 1 ---- n OrderItem
+Product 1 ---- n CartItem
+Product 1 ---- n Review
+Product 1 ---- n WishlistItem
+
+Cart
+|---- cart_id (PK)
+|---- user_id (FK)
+|---- created_date
+
+Cart 1 ---- n CartItem
+CartItem
+|---- cart_item_id (PK)
+|---- cart_id (FK)
+|---- product_id (FK)
+|---- quantity
+
+Review
+|---- review_id (PK)
+|---- product_id (FK)
+|---- user_id (FK)
+|---- rating
+|---- comment
+|---- review_date
+
+Order 1 ---- 1 Payment
+Payment
+|---- payment_id (PK)
+|---- order_id (FK)
+|---- payment_date
+|---- amount
+|---- payment_method
+
+Order 1 ---- 1 Shipping
+Shipping
+|---- shipping_id (PK)
+|---- order_id (FK)
+|---- shipping_method
+|---- tracking_number
+|---- shipping_date
+|---- delivery_date
+
+User 1 ---- n Wishlist
+Wishlist
+|---- wishlist_id (PK)
+|---- user_id (FK)
+|---- created_date
+
+Wishlist 1 ---- n WishlistItem
+WishlistItem
+|---- wishlist_item_id (PK)
+|---- wishlist_id (FK)
+|---- product_id (FK)
+
+Coupon
+|---- coupon_id (PK)
+|---- code
+|---- discount_percentage
+|---- start_date
+|---- end_date
+|---- usage_limit
+
+Order 1 ---- n OrderCoupon
+OrderCoupon
+|---- order_coupon_id (PK)
+|---- order_id (FK)
+|---- coupon_id (FK)
+|---- discount_amount
+
+OrderItem 1 ---- n ReturnRequest
+ReturnRequest
+|---- return_request_id (PK)
+|---- order_item_id (FK)
+|---- user_id (FK)
+|---- request_date
+|---- reason
+|---- status
+
+------------------------------------------------------------------------
+django-structure:
+
+core/
+│
+├── core/          # Main project folder
+│   ├── __init__.py
+│   ├── asgi.py
+│   ├── settings.py                # Project settings
+│   ├── urls.py                    # Project URL configuration
+│   ├── wsgi.py
+│
+├── ecommerce/                     # Core eCommerce app
+│   ├── __init__.py
+│   ├── admin.py                   # Admin panel configurations
+│   ├── apps.py
+│   ├── models.py                  # Models for the eCommerce entities
+│   ├── tests.py                   # Test cases for the app
+│   ├── urls.py                    # App-level URL configurations
+│   ├── views.py                   # Views for handling requests
+│   ├── migrations/               # Migration files
+│   │   ├── __init__.py
+│   ├── static/                   # Static files like CSS, JS, images
+│   └── templates/               # HTML templates
+│       ├── base.html
+│       ├── product_list.html
+│       ├── product_detail.html
+│       ├── cart.html
+│       ├── checkout.html
+│       ├── order_summary.html
+│       ├── wishlist.html
+│       ├── review_form.html
+│       ├── return_request.html
+│       ├── shipping_info.html
+│       ├── coupon_form.html
+│       └── user_profile.html
+│
+├── users/                        # User management app
+│   ├── __init__.py
+│   ├── admin.py
+│   ├── apps.py
+│   ├── models.py
+│   ├── tests.py
+│   ├── urls.py
+│   ├── views.py
+│   ├── migrations/
+│   │   ├── __init__.py
+│   ├── static/
+│   └── templates/
+│       └── registration/
+│           ├── login.html
+│           ├── signup.html
+│           └── profile.html
+│
+├── cart/                        # Shopping Cart functionality
+│   ├── __init__.py
+│   ├── admin.py
+│   ├── apps.py
+│   ├── models.py
+│   ├── tests.py
+│   ├── urls.py
+│   ├── views.py
+│   ├── migrations/
+│   │   ├── __init__.py
+│   ├── static/
+│   └── templates/
+│       └── cart/
+│           ├── cart_view.html
+│           └── cart_item.html
+│
+├── orders/                       # Order management app
+│   ├── __init__.py
+│   ├── admin.py
+│   ├── apps.py
+│   ├── models.py
+│   ├── tests.py
+│   ├── urls.py
+│   ├── views.py
+│   ├── migrations/
+│   │   ├── __init__.py
+│   ├── static/
+│   └── templates/
+│       └── orders/
+│           ├── order_summary.html
+│           └── order_detail.html
+│
+├── reviews/                      # Product reviews functionality
+│   ├── __init__.py
+│   ├── admin.py
+│   ├── apps.py
+│   ├── models.py
+│   ├── tests.py
+│   ├── urls.py
+│   ├── views.py
+│   ├── migrations/
+│   │   ├── __init__.py
+│   ├── static/
+│   └── templates/
+│       └── reviews/
+│           └── review_list.html
+│
+├── coupons/                      # Coupons and discounts management
+│   ├── __init__.py
+│   ├── admin.py
+│   ├── apps.py
+│   ├── models.py
+│   ├── tests.py
+│   ├── urls.py
+│   ├── views.py
+│   ├── migrations/
+│   │   ├── __init__.py
+│   ├── static/
+│   └── templates/
+│       └── coupons/
+│           └── coupon_form.html
+│
+├── shipping/                     # Shipping management
+│   ├── __init__.py
+│   ├── admin.py
+│   ├── apps.py
+│   ├── models.py
+│   ├── tests.py
+│   ├── urls.py
+│   ├── views.py
+│   ├── migrations/
+│   │   ├── __init__.py
+│   ├── static/
+│   └── templates/
+│       └── shipping/
+│           └── shipping_info.html
+│
+├── wishlists/                    # Wishlist functionality
+│   ├── __init__.py
+│   ├── admin.py
+│   ├── apps.py
+│   ├── models.py
+│   ├── tests.py
+│   ├── urls.py
+│   ├── views.py
+│   ├── migrations/
+│   │   ├── __init__.py
+│   ├── static/
+│   └── templates/
+│       └── wishlists/
+│           └── wishlist_view.html
+│
+├── returns/                      # Return requests functionality
+│   ├── __init__.py
+│   ├── admin.py
+│   ├── apps.py
+│   ├── models.py
+│   ├── tests.py
+│   ├── urls.py
+│   ├── views.py
+│   ├── migrations/
+│   │   ├── __init__.py
+│   ├── static/
+│   └── templates/
+│       └── returns/
+│           └── return_request_form.html
+│
+└── manage.py                     # Django management script

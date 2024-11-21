@@ -1,0 +1,1790 @@
+{
+	"info": {
+		"_postman_id": "c7f5e03b-40fb-4619-9c51-87d7e5d917d5",
+		"name": "Nourish Storefront",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "18412731"
+	},
+	"item": [
+		{
+			"name": "Category",
+			"item": [
+				{
+					"name": "Categories List",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url_env}}/store/product-categories?expand=products",
+							"host": [
+								"{{url_env}}"
+							],
+							"path": [
+								"store",
+								"product-categories"
+							],
+							"query": [
+								{
+									"key": "expand",
+									"value": "products"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Category by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url_env}}/store/product-categories/pcat_01HBJ8NYDZ0JJTJ9VYDN7RQE0H",
+							"host": [
+								"{{url_env}}"
+							],
+							"path": [
+								"store",
+								"product-categories",
+								"pcat_01HBJ8NYDZ0JJTJ9VYDN7RQE0H"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get category along with products",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url_env}}/store/product-categories/pcat_01HBJ8NYDZ0JJTJ9VYDN7RQE0H?expand=products",
+							"host": [
+								"{{url_env}}"
+							],
+							"path": [
+								"store",
+								"product-categories",
+								"pcat_01HBJ8NYDZ0JJTJ9VYDN7RQE0H"
+							],
+							"query": [
+								{
+									"key": "expand",
+									"value": "products"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Category Product Mapping for Strapi API",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url_env}}/store/product/strapi/categoryproduct",
+							"host": [
+								"{{url_env}}"
+							],
+							"path": [
+								"store",
+								"product",
+								"strapi",
+								"categoryproduct"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Product",
+			"item": [
+				{
+					"name": "Get Products",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url_env}}/store/products",
+							"host": [
+								"{{url_env}}"
+							],
+							"path": [
+								"store",
+								"products"
+							],
+							"query": [
+								{
+									"key": "collection_id[0]",
+									"value": "pcol_01HECKZ55NHMWZTW9CY1TZ0CMW",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get product by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url_env}}/store/products/prod_01HCBWDRVRXK0NNPEJMHA6VYVC",
+							"host": [
+								"{{url_env}}"
+							],
+							"path": [
+								"store",
+								"products",
+								"prod_01HCBWDRVRXK0NNPEJMHA6VYVC"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Homepage",
+			"item": [
+				{
+					"name": "Get collections by handle",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url_env}}/store/collections?handle[0]=banners",
+							"host": [
+								"{{url_env}}"
+							],
+							"path": [
+								"store",
+								"collections"
+							],
+							"query": [
+								{
+									"key": "expand",
+									"value": "products",
+									"disabled": true
+								},
+								{
+									"key": "handle[0]",
+									"value": "banners"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Products of a collection",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url_env}}/store/products?collection_id[0]=pcol_01HE7WCE7B9W4J61BVK08WXQXG",
+							"host": [
+								"{{url_env}}"
+							],
+							"path": [
+								"store",
+								"products"
+							],
+							"query": [
+								{
+									"key": "collection_id[0]",
+									"value": "pcol_01HE7WCE7B9W4J61BVK08WXQXG"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all collections",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url_env}}/store/collections",
+							"host": [
+								"{{url_env}}"
+							],
+							"path": [
+								"store",
+								"collections"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "OTP Verification",
+			"item": [
+				{
+					"name": "Get OTP",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"mobile\": \"9711242393\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url_env}}/store/otp/send",
+							"host": [
+								"{{url_env}}"
+							],
+							"path": [
+								"store",
+								"otp",
+								"send"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verify OTP",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXN0b21lcl9pZCI6ImN1c18wMUhFQ1A4QTdBUzZUQ0I1TkhCUDRIV0Y2ViIsImRvbWFpbiI6InN0b3JlIiwiaWF0IjoxNjk5MDg1NzM5LCJleHAiOjE3MDE2Nzc3Mzl9.f07BlC9BAeEb0h1yVVPyFbB3vG-_sGOFfOIpq018iUQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"mobile\": \"9711242393\",\r\n    \"otp\": \"767453\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url_env}}/store/otp/verify",
+							"host": [
+								"{{url_env}}"
+							],
+							"path": [
+								"store",
+								"otp",
+								"verify"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Order",
+			"item": [
+				{
+					"name": "Initialize cart",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXN0b21lcl9pZCI6ImN1c18wMUhFQ1hUMzVORFo5R0JIQVdXRzgyV1A0UiIsImRvbWFpbiI6InN0b3JlIiwiaWF0IjoxNzAwMTExODU3LCJleHAiOjE3MDI3MDM4NTd9.DgQ8eZVhZS7noCOc_UrlVONS42tD26fcomcZLzMp2kg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"region_id\": \"reg_01HBJS9WBK5R58KD5NA233GFEW\",\r\n    \"items\": [{\r\n        \"variant_id\": \"variant_01HESE42AJKPMD3H8A7YK0FWKE\",\r\n        \"quantity\": 1\r\n    }]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url_env}}/store/carts",
+							"host": [
+								"{{url_env}}"
+							],
+							"path": [
+								"store",
+								"carts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Associate address with cart",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"shipping_address\": {\r\n      \"first_name\": \"Kartik\",\r\n      \"last_name\": \"Gaur\",\r\n      \"address_1\": \"Address\",\r\n      \"address_2\": \"ASdad\",\r\n      \"city\": \"Delhi\",\r\n      \"country_code\": \"in\",\r\n      \"province\": \"delhi\",\r\n      \"postal_code\": \"111111\",\r\n      \"phone\": \"99999999\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url_env}}/store/carts/cart_01HCMXJJ4EMYZRK4MZPBPC9C4Z",
+							"host": [
+								"{{url_env}}"
+							],
+							"path": [
+								"store",
+								"carts",
+								"cart_01HCMXJJ4EMYZRK4MZPBPC9C4Z"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Associate guest user with cart",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXN0b21lcl9pZCI6ImN1c18wMUhDRU1FODg0TUJTNzNTUDc1NUQyVkQwSyIsImRvbWFpbiI6InN0b3JlIiwiaWF0IjoxNjk3MTAyMzQ0LCJleHAiOjE2OTk2OTQzNDR9.z96y4EwRUF8MnoJNthaCvCT03N_rqaQlDOD6JhHaziw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{url_env}}/store/carts/cart_01HCMXJJ4EMYZRK4MZPBPC9C4Z",
+							"host": [
+								"{{url_env}}"
+							],
+							"path": [
+								"store",
+								"carts",
+								"cart_01HCMXJJ4EMYZRK4MZPBPC9C4Z"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add item to cart using variant id",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"variant_id\": \"variant_01HEAFKEQCQ045CMEED009N3RJ\",\r\n    \"quantity\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url_env}}/store/carts/cart_01HEHQXY2SW4S8NVPDS4PKJP5K/line-items",
+							"host": [
+								"{{url_env}}"
+							],
+							"path": [
+								"store",
+								"carts",
+								"cart_01HEHQXY2SW4S8NVPDS4PKJP5K",
+								"line-items"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Item from cart",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url_env}}/store/carts/{id}/line-items/{line/id}",
+							"host": [
+								"{{url_env}}"
+							],
+							"path": [
+								"store",
+								"carts",
+								"{id}",
+								"line-items",
+								"{line",
+								"id}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Associate Payment session with cart",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{url_env}}/store/carts/cart_01H984FP9T9QY3J1M63SSDZEKP/payment-sessions",
+							"host": [
+								"{{url_env}}"
+							],
+							"path": [
+								"store",
+								"carts",
+								"cart_01H984FP9T9QY3J1M63SSDZEKP",
+								"payment-sessions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Complete Cart / Place Order",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{url_env}}/store/carts/cart_01H9F7GSP4YGR6MQW2Q0F32746/complete",
+							"host": [
+								"{{url_env}}"
+							],
+							"path": [
+								"store",
+								"carts",
+								"cart_01H9F7GSP4YGR6MQW2Q0F32746",
+								"complete"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update a existing cart item",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"quantity\": 0\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url_env}}/store/carts/cart_01H9SE1VA381QH65JR3S4RSES8/line-items/item_01H9SE1VBYD2KC0JBQ80CG9D3H",
+							"host": [
+								"{{url_env}}"
+							],
+							"path": [
+								"store",
+								"carts",
+								"cart_01H9SE1VA381QH65JR3S4RSES8",
+								"line-items",
+								"item_01H9SE1VBYD2KC0JBQ80CG9D3H"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get customer order",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXN0b21lcl9pZCI6ImN1c18wMUhDRU1FODg0TUJTNzNTUDc1NUQyVkQwSyIsImRvbWFpbiI6InN0b3JlIiwiaWF0IjoxNjk3MDA1NDk3LCJleHAiOjE2OTk1OTc0OTd9.z9hC-5OEikkSCIw1XYkUVLwhXNFY1F1FcsTs45EKljA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-medusa-access-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXN0b21lcl9pZCI6ImN1c18wMUhDRU1FODg0TUJTNzNTUDc1NUQyVkQwSyIsImRvbWFpbiI6InN0b3JlIiwiaWF0IjoxNjk3MDA1Mzg1LCJleHAiOjE2OTk1OTczODV9.x1YpVPmduS_ZcSntbOXHzgntjMMZ-WHxFOsMpsuB1oM",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url_env}}/store/customers/me/orders",
+							"host": [
+								"{{url_env}}"
+							],
+							"path": [
+								"store",
+								"customers",
+								"me",
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Order Failure",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"reason\": \"test\",\r\n    \"data\": {\r\n        \"message\": \"data\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url_env}}/store/failure",
+							"host": [
+								"{{url_env}}"
+							],
+							"path": [
+								"store",
+								"failure"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reorder",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Cart",
+			"item": [
+				{
+					"name": "Get cart ",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url_env}}/store/carts/cart_01H9QGQQH6S1SZ99XF6BX38R25",
+							"host": [
+								"{{url_env}}"
+							],
+							"path": [
+								"store",
+								"carts",
+								"cart_01H9QGQQH6S1SZ99XF6BX38R25"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Store Abandon Cart (Token Required)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXN0b21lcl9pZCI6ImN1c18wMUhFRzU3NEIxV05aQVFCMjFLQlBTNzZNTSIsImRvbWFpbiI6InN0b3JlIiwiaWF0IjoxNzAwNjM5Mzg1LCJleHAiOjE3MDMyMzEzODV9.TaNqXZ6sl0obnrTtpKrh5mbwZq4BWT4yfg7WJhW4ejE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{url_env}}/store/cart/abandoncart/cart_01HFRJJXQBPYTC8NPDKVX7C93K",
+							"host": [
+								"{{url_env}}"
+							],
+							"path": [
+								"store",
+								"cart",
+								"abandoncart",
+								"cart_01HFRJJXQBPYTC8NPDKVX7C93K"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Copy cart",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXN0b21lcl9pZCI6ImN1c18wMUhFQ1hUMzVORFo5R0JIQVdXRzgyV1A0UiIsImRvbWFpbiI6InN0b3JlIiwiaWF0IjoxNzAxMjQ5ODE4LCJleHAiOjE3MDM4NDE4MTh9.J32BCGELQcsc7bxy1yvBhjeq0o3C7AGiZpyIF84j31M",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"cart_id\":\"cart_01HGD6BPKJXYJGMAFW0JHNXM4B\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url_env}}/store/cart/copycart",
+							"host": [
+								"{{url_env}}"
+							],
+							"path": [
+								"store",
+								"cart",
+								"copycart"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get latest non completed cart (token required)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXN0b21lcl9pZCI6ImN1c18wMUhFQ1hUMzVORFo5R0JIQVdXRzgyV1A0UiIsImRvbWFpbiI6InN0b3JlIiwiaWF0IjoxNzEwODI1MDcyLCJleHAiOjE3MTM0MTcwNzJ9.v628FOiabuxfYW9wtkxKb1VzXjKG8zSpQIMtzjbUExk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url_env}}/store/cart/me/getcart",
+							"host": [
+								"{{url_env}}"
+							],
+							"path": [
+								"store",
+								"cart",
+								"me",
+								"getcart"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Region",
+			"item": [
+				{
+					"name": "get region",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url_env}}/store/regions",
+							"host": [
+								"{{url_env}}"
+							],
+							"path": [
+								"store",
+								"regions"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Product",
+			"item": [
+				{
+					"name": "Get Variant",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url_env}}/store/variants",
+							"host": [
+								"{{url_env}}"
+							],
+							"path": [
+								"store",
+								"variants"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Products",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api-dev.nourishstore.in/api/store/products",
+							"protocol": "https",
+							"host": [
+								"api-dev",
+								"nourishstore",
+								"in"
+							],
+							"path": [
+								"api",
+								"store",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url_env}}/store/products?handle=dal",
+							"host": [
+								"{{url_env}}"
+							],
+							"path": [
+								"store",
+								"products"
+							],
+							"query": [
+								{
+									"key": "handle",
+									"value": "dal"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "apply discount at checkout",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "for asending order",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Customer",
+			"item": [
+				{
+					"name": "Customer login (JWT)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"hellow@gmail.com\",\r\n    \"password\":\"1234\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url_env}}/store/auth/token",
+							"host": [
+								"{{url_env}}"
+							],
+							"path": [
+								"store",
+								"auth",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Customer logout",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url_env}}/store/auth",
+							"host": [
+								"{{url_env}}"
+							],
+							"path": [
+								"store",
+								"auth"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Customer Details",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXN0b21lcl9pZCI6ImN1c18wMUhFQ1ZGVjg5S0VRMzlTNjRXSjgxUE5RVyIsImRvbWFpbiI6InN0b3JlIiwiaWF0IjoxNjk5MDkzMzc1LCJleHAiOjE3MDE2ODUzNzV9.9ivdgqkEllAUjWEEZL8ybs_RRiiq47duEKe_puJ6A68",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url_env}}/store/customers/me",
+							"host": [
+								"{{url_env}}"
+							],
+							"path": [
+								"store",
+								"customers",
+								"me"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Customer Details - See docs for request body",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    /store/customers/me\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url_env}}/store/customers/me",
+							"host": [
+								"{{url_env}}"
+							],
+							"path": [
+								"store",
+								"customers",
+								"me"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add shipping address",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url_env}}/store/customers/me/addresses",
+							"host": [
+								"{{url_env}}"
+							],
+							"path": [
+								"store",
+								"customers",
+								"me",
+								"addresses"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update address of a customer",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXN0b21lcl9pZCI6ImN1c18wMUhDS1E1S1paV0VQNUc4UzNDNEZZUVdNWSIsImRvbWFpbiI6InN0b3JlIiwiaWF0IjoxNjk3MTc0NzU5LCJleHAiOjE2OTk3NjY3NTl9.htrbALKg38xN8hGUv-ZT67KUS2_U93nmtHTy4w23h1c",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"first_name\": \"Gina\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url_env}}/store/customers/me/addresses/addr_01HCKR2WEF7DC9JEYPBX2BVJDN",
+							"host": [
+								"{{url_env}}"
+							],
+							"path": [
+								"store",
+								"customers",
+								"me",
+								"addresses",
+								"addr_01HCKR2WEF7DC9JEYPBX2BVJDN"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete customer address",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url_env}}/store/customers/me/addresses/{address/id}",
+							"host": [
+								"{{url_env}}"
+							],
+							"path": [
+								"store",
+								"customers",
+								"me",
+								"addresses",
+								"{address",
+								"id}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Orders of logged in customer",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url_env}}/store/customers/me/orders",
+							"host": [
+								"{{url_env}}"
+							],
+							"path": [
+								"store",
+								"customers",
+								"me",
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "user order list",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get user details",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXN0b21lcl9pZCI6ImN1c18wMUhDUk1YWFExUlIyUkpSRUU2VDRIM1FSQiIsImRvbWFpbiI6InN0b3JlIiwiaWF0IjoxNjk3OTQ3ODE0LCJleHAiOjE3MDA1Mzk4MTR9.iVkt_s77TZ3Kr9yc0VXHbHb-Uly6ZkCslsdZ4qpEaKM",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url_env}}/store/customers/me",
+							"host": [
+								"{{url_env}}"
+							],
+							"path": [
+								"store",
+								"customers",
+								"me"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add address into profile",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXN0b21lcl9pZCI6ImN1c18wMUhDS1E1S1paV0VQNUc4UzNDNEZZUVdNWSIsImRvbWFpbiI6InN0b3JlIiwiaWF0IjoxNjk3MTgyMDE5LCJleHAiOjE2OTk3NzQwMTl9.mMnPooeYXF14P2HdGBz3-7ybrBhMrHeEtSUJ76WcQN0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"address\": {\r\n      \"first_name\": \"Celia\",\r\n      \"last_name\": \"Schumm\",\r\n      \"address_1\": \"225 Bednar Curve\",\r\n      \"city\": \"Danielville\",\r\n      \"country_code\": \"IN\",\r\n      \"postal_code\": \"110046\",\r\n      \"phone\":\"8181818181\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url_env}}/store/customers/me/addresses",
+							"host": [
+								"{{url_env}}"
+							],
+							"path": [
+								"store",
+								"customers",
+								"me",
+								"addresses"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "check if email exist",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url_env}}/store/auth/abhishek@gmail.com",
+							"host": [
+								"{{url_env}}"
+							],
+							"path": [
+								"store",
+								"auth",
+								"abhishek@gmail.com"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "reset password",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"abhishek@gmail.com\",\r\n    \"password\": \"123456789\",\r\n    \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXN0b21lcl9pZCI6ImN1c18wMUhDUk1YWFExUlIyUkpSRUU2VDRIM1FSQiIsImRvbWFpbiI6InN0b3JlIiwiaWF0IjoxNjk3NjEwODQ1LCJleHAiOjE3MDAyMDI4NDV9._w2EXM8UvrlKrgrJOPSGEiuktP4Eta-cK8eEjGgMoE4\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url_env}}/store/customers/password-reset",
+							"host": [
+								"{{url_env}}"
+							],
+							"path": [
+								"store",
+								"customers",
+								"password-reset"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "edit your profile",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "request reset password",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Upload profile pic",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/LEADS/Desktop/Desktop/session-settings-production.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:9000/store/customer/profile/upload",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"store",
+								"customer",
+								"profile",
+								"upload"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Customer",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXN0b21lcl9pZCI6ImN1c18wMUoxWUpTQTEwUlRHU1FDTjJGRVc3SERWUiIsImRvbWFpbiI6InN0b3JlIiwiaWF0IjoxNzIwODkzMTM4LCJleHAiOjE3MjM0ODUxMzh9.NeDyi_I7XIiXUNnKhqTNpPbOegIQ-OlkoHbRo8GusY8",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url_env}}/store/customer/delete",
+							"host": [
+								"{{url_env}}"
+							],
+							"path": [
+								"store",
+								"customer",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Collection",
+			"item": [
+				{
+					"name": "Get all collection",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url_env}}/store/collections",
+							"host": [
+								"{{url_env}}"
+							],
+							"path": [
+								"store",
+								"collections"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Discounts",
+			"item": [
+				{
+					"name": "Fetch all discounts",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.nourishstore.in/api/store/discounts/list",
+							"protocol": "https",
+							"host": [
+								"api",
+								"nourishstore",
+								"in"
+							],
+							"path": [
+								"api",
+								"store",
+								"discounts",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add discount",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Shipping Options",
+			"item": [
+				{
+					"name": "Get shipping options",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"pincode\": \"721154\",\r\n    \"cart_id\": \"cart_01HHHB0QBWM70BPRR18BRF9BBY\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url_env}}/store/shipping/option",
+							"host": [
+								"{{url_env}}"
+							],
+							"path": [
+								"store",
+								"shipping",
+								"option"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get shipping options for cart",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url_env}}/store/shipping-options/cart_01HHH5W9NAMTPB44V3K65ZKWM1",
+							"host": [
+								"{{url_env}}"
+							],
+							"path": [
+								"store",
+								"shipping-options",
+								"cart_01HHH5W9NAMTPB44V3K65ZKWM1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Wishlist",
+			"item": [
+				{
+					"name": "Add Item to wishlist",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXN0b21lcl9pZCI6ImN1c18wMUhFQ1hUMzVORFo5R0JIQVdXRzgyV1A0UiIsImRvbWFpbiI6InN0b3JlIiwiaWF0IjoxNzAwMTExODU3LCJleHAiOjE3MDI3MDM4NTd9.DgQ8eZVhZS7noCOc_UrlVONS42tD26fcomcZLzMp2kg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"variant_id\": \"variant_01HESG7CH06W8FA4BGES50V1E2\",\r\n    \"product_id\": \"prod_01HESFMJ0A77188FAG8DENSSRF\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url_env}}/store/customer/wishlist",
+							"host": [
+								"{{url_env}}"
+							],
+							"path": [
+								"store",
+								"customer",
+								"wishlist"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete item from wishlist",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXN0b21lcl9pZCI6ImN1c18wMUhFQ1hUMzVORFo5R0JIQVdXRzgyV1A0UiIsImRvbWFpbiI6InN0b3JlIiwiaWF0IjoxNzAwMTExODU3LCJleHAiOjE3MDI3MDM4NTd9.DgQ8eZVhZS7noCOc_UrlVONS42tD26fcomcZLzMp2kg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"variant_id\": \"variant_01HESG7CH06W8FA4BGES50V1E2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url_env}}/store/customer/wishlist",
+							"host": [
+								"{{url_env}}"
+							],
+							"path": [
+								"store",
+								"customer",
+								"wishlist"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get populated wishlist",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXN0b21lcl9pZCI6ImN1c18wMUhFQ1hUMzVORFo5R0JIQVdXRzgyV1A0UiIsImRvbWFpbiI6InN0b3JlIiwiaWF0IjoxNzAxMzM4MjA4LCJleHAiOjE3MDM5MzAyMDh9.Pf4BIfhrnAdtWvqLTw-cGEZfgLaLj-Vfd697V1P7lSc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url_env}}/store/customer/wishlist",
+							"host": [
+								"{{url_env}}"
+							],
+							"path": [
+								"store",
+								"customer",
+								"wishlist"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Product Reviews",
+			"item": [
+				{
+					"name": "Add product reviews (Tokent Required)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXN0b21lcl9pZCI6ImN1c18wMUhFQ1hUMzVORFo5R0JIQVdXRzgyV1A0UiIsImRvbWFpbiI6InN0b3JlIiwiaWF0IjoxNzAxMTQ5Mjc5LCJleHAiOjE3MDM3NDEyNzl9.zMS6AKCk74yOrj2dXmY85FN4D0oyvkbTNx1NRXBuP6M",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"display_title\": \"Awesome Product\",\r\n    \"content\": \"Kartik-123\",\r\n    \"rating\": 5\r\n    \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url_env}}/store/product/prod_01HESE429DMTVNJZCDZ3QP7N3F/reviews",
+							"host": [
+								"{{url_env}}"
+							],
+							"path": [
+								"store",
+								"product",
+								"prod_01HESE429DMTVNJZCDZ3QP7N3F",
+								"reviews"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update a review (Token required)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXN0b21lcl9pZCI6ImN1c18wMUhFQ1hUMzVORFo5R0JIQVdXRzgyV1A0UiIsImRvbWFpbiI6InN0b3JlIiwiaWF0IjoxNzAxMTQ5Mjc5LCJleHAiOjE3MDM3NDEyNzl9.zMS6AKCk74yOrj2dXmY85FN4D0oyvkbTNx1NRXBuP6M",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"display_title\": \"Awesome Product\",\r\n    \"content\": \"Awesome Product123321\",\r\n    \"rating\": 4.5\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url_env}}/store/product/reviews/prev_01HGAD3ETP7WHVXG6HSPPTENGN",
+							"host": [
+								"{{url_env}}"
+							],
+							"path": [
+								"store",
+								"product",
+								"reviews",
+								"prev_01HGAD3ETP7WHVXG6HSPPTENGN"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete a review (Token required)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXN0b21lcl9pZCI6ImN1c18wMUhFQ1hUMzVORFo5R0JIQVdXRzgyV1A0UiIsImRvbWFpbiI6InN0b3JlIiwiaWF0IjoxNzAxMTQ5Mjc5LCJleHAiOjE3MDM3NDEyNzl9.zMS6AKCk74yOrj2dXmY85FN4D0oyvkbTNx1NRXBuP6M",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url_env}}/store/product/reviews/prev_01HGADCFETJ2Q5BFD6X93H2QMB",
+							"host": [
+								"{{url_env}}"
+							],
+							"path": [
+								"store",
+								"product",
+								"reviews",
+								"prev_01HGADCFETJ2Q5BFD6X93H2QMB"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all reviews of a product",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url_env}}/store/product/prod_01HESE429DMTVNJZCDZ3QP7N3F/reviews",
+							"host": [
+								"{{url_env}}"
+							],
+							"path": [
+								"store",
+								"product",
+								"prod_01HESE429DMTVNJZCDZ3QP7N3F",
+								"reviews"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Check Review for a customer",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXN0b21lcl9pZCI6ImN1c18wMUhFRzU3NEIxV05aQVFCMjFLQlBTNzZNTSIsImRvbWFpbiI6InN0b3JlIiwiaWF0IjoxNzE0OTc1MTQxLCJleHAiOjE3MTc1NjcxNDF9.nLoYW9B2H3CPtD0J89yFHwSv1tQ1Uf0wtGzC6kLi8zY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url_env}}/store/product/prod_01HESE429DMTVNJZCDZ3QP7N3F/reviews/check",
+							"host": [
+								"{{url_env}}"
+							],
+							"path": [
+								"store",
+								"product",
+								"prod_01HESE429DMTVNJZCDZ3QP7N3F",
+								"reviews",
+								"check"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Invoice",
+			"item": [
+				{
+					"name": "Fetch invoice",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url_env}}/store/invoice/order_01HESEN9H39DVXC0F4HF2NYQE6",
+							"host": [
+								"{{url_env}}"
+							],
+							"path": [
+								"store",
+								"invoice",
+								"order_01HESEN9H39DVXC0F4HF2NYQE6"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Push Notification",
+			"item": [
+				{
+					"name": "Add FCM token",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXN0b21lcl9pZCI6ImN1c18wMUoxQ0YyVzFDN0sxUDJERFIxWk5QRkdHRiIsImRvbWFpbiI6InN0b3JlIiwiaWF0IjoxNzE5NDc5MTM2LCJleHAiOjE3MjIwNzExMzZ9.Pa7iEOF_WjKq_ulvNcRMIlJB_R3BJ6UG1t2KqUrhbz4",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"fcm_token\": \"asdfas\",\r\n    \"device_id\": \"asdfas\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url_env}}/store/push",
+							"host": [
+								"{{url_env}}"
+							],
+							"path": [
+								"store",
+								"push"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get FCM data for a customer (TOken required)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXN0b21lcl9pZCI6ImN1c18wMUoxQ0YyVzFDN0sxUDJERFIxWk5QRkdHRiIsImRvbWFpbiI6InN0b3JlIiwiaWF0IjoxNzE5NDgwODc2LCJleHAiOjE3MjIwNzI4NzZ9.cbR2AQpxhxNUfZAt5aq5QgeiqQ2yid7RDmWyRp7obcM",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url_env}}/store/push",
+							"host": [
+								"{{url_env}}"
+							],
+							"path": [
+								"store",
+								"push"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Customer Group",
+			"item": [
+				{
+					"name": "Get customer groups",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url_env}}/store/customergroup",
+							"host": [
+								"{{url_env}}"
+							],
+							"path": [
+								"store",
+								"customergroup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Check if customer exist in customer group",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"group_id\": \"cgrp_01J4916KMNB8X9YKPT04TDY1RP\",\r\n    \"customer_id\": \"cus_01J1YJSA10RTGSQCN2FEW7HDVR\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url_env}}/store/customergroup",
+							"host": [
+								"{{url_env}}"
+							],
+							"path": [
+								"store",
+								"customergroup"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

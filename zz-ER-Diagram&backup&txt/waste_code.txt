@@ -1,0 +1,265 @@
+-------------from cart app ---------------
+# cart_id = serializers.UUIDField(required=False, allow_null=True)
+return {
+            'id': product_variant.pk,
+            'variant_title': variant_name,
+            'thumbnail': thumbnail
+            # '''
+            # Do Not delete
+            # All these will be include in different resppnse
+            # price': product_variant.price,
+            # 'quantity': obj.quantity,
+            # 'total': product_variant.price * obj.quantity,
+            # '''
+        }
+
+    # def retrieve(self, request, *args, **kwargs):
+    #     try:
+    #         # Get the object based on the primary key provided in the URL
+    #         instance = self.filter_queryset(self.get_object())
+    #         page = self.paginate_queryset(instance)
+    #         if page is not None:
+    #             serializer = self.get_serializer(page)
+    #             result = self.get_paginated_response(serializer.data)
+    #             data = result.data # pagination data
+    #         else:
+    #             serializer = self.get_serializer(instance)
+    #             data = serializer.data
+    #         payload = {
+    #             "status": status.HTTP_200_OK, 
+    #             "message": 'All Cart Details', 
+    #             "data": data
+    #         }
+    #         return Response(payload ,status=status.HTTP_200_OK)
+    #     except Exception as e:
+    #         return Response({
+    #             "status": status.HTTP_400_BAD_REQUEST,
+    #             "message": str(e),
+    #             "data": []
+    #         }, status=status.HTTP_400_BAD_REQUEST)
+    
+-----------------------------
+
+# # product_class = ProductClassSerializer()
+# category = serializers.SlugRelatedField(slug_field='category_slug', queryset=Category.objects.all())
+# # dimensions = DimensionsSerializer()
+# # tax = TaxSerializer()
+# # meta = MetaSerializer()
+# # images = ProductImageSerializer(many=True, read_only=True)
+# variants = ProductVariantSerializer(many=True, read_only=True)
+# reviews = ReviewSerializer(many=True, read_only=True)
+# stocks = StockSerializer(many=True, read_only=True)
+
+# def save(self, *args, **kwargs):
+#     if not self.slug:
+#         self.slug = slugify(self.name)
+#     super().save(*args, **kwargs)
+
+# def get_absolute_url(self):
+#     return reverse('product_detail', kwargs={'slug': self.slug})\
+
+class Dimensions(models.Model):
+    width = models.DecimalField(max_digits=10, decimal_places=2)
+    height = models.DecimalField(max_digits=10, decimal_places=2)
+    depth = models.DecimalField(max_digits=10, decimal_places=2)
+
+class Brand(models.Model):
+    name = models.CharField(max_length=255)
+    description = models.TextField(default='')
+
+    def __str__(self):
+        return self.name
+
+@admin.register(Brand)
+class BrandAdmin(admin.ModelAdmin):
+    list_display = ('name', 'description')
+    search_fields = ('name', 'description')
+
+@admin.register(Dimensions)
+class DimensionsAdmin(admin.ModelAdmin):
+    list_display = ('width', 'height', 'depth')
+
+class BrandViewSet(viewsets.ModelViewSet):
+    queryset = Brand.objects.all()
+    serializer_class = BrandSerializer
+
+class DimensionsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Dimensions
+        fields = '__all__'
+
+------------------ GST INFO -------------------------------
+# https://dummyjson.com/docs/products, dummy ecommerce api response
+# class product_class()
+
+# GST Amount= 
+# 100+GST Rate
+# Inclusive Price×GST Rate
+
+
+# Base Price (Exclusive of GST)
+# =
+# Inclusive Price
+# −
+# GST Amount
+# Base Price (Exclusive of GST)=Inclusive Price−GST Amount
+
+# For Exclusive GST
+# If the price is exclusive of GST:
+
+# GST Amount
+# =
+# Exclusive Price
+# ×
+# GST Rate
+# 100
+# GST Amount=Exclusive Price× 
+# 100
+# GST Rate
+# ​
+# Total Price (Inclusive of GST)
+# =
+# Exclusive Price
+# +
+# GST Amount
+# Total Price (Inclusive of GST)=Exclusive Price+GST Amount
+-----------------------------------------------------------
+class Review(models.Model):
+    product = models.ForeignKey(Product, related_name='reviews', on_delete=models.CASCADE)
+    rating = models.IntegerField()
+    comment = models.TextField()
+    date = models.DateTimeField(auto_now_add=True)
+    reviewer_name = models.CharField(max_length=255)
+    reviewer_email = models.EmailField()
+
+    def __str__(self):
+        return f"Review for {self.product.name} by {self.reviewer_name}"
+
+class Warehouse(models.Model):
+    name = models.CharField(max_length=255)
+    location = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.name
+
+class Stock(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='stocks')
+    warehouse = models.ForeignKey(Warehouse, on_delete=models.CASCADE, related_name='stocks')
+    quantity = models.PositiveIntegerField(default=0)
+    minimum_stock_level = models.PositiveIntegerField(default=1)
+    reorder_level = models.PositiveIntegerField(default=0)
+    reorder_quantity = models.PositiveIntegerField(default=0)
+    last_restocked = models.DateTimeField(blank=True, null=True)
+
+    def __str__(self):
+        return f"Stock for {self.product.name} at {self.warehouse.name}"
+
+    def is_below_reorder_level(self):
+        return self.quantity <= self.reorder_level
+
+    def is_below_minimum_stock_level(self):
+        return self.quantity < self.minimum_stock_level
+
+class ReviewInline(admin.TabularInline):
+    model = Review
+    extra = 1
+
+class StockInline(admin.TabularInline):
+    model = Stock
+    extra = 1
+
+@admin.register(ProductClass)
+class ProductClassAdmin(admin.ModelAdmin):
+    list_display = ('name', 'has_variant', 'is_shipping_required')
+
+@admin.register(Warehouse)
+class WarehouseAdmin(admin.ModelAdmin):
+    list_display = ('name', 'location')
+    search_fields = ('name', 'location')
+
+@admin.register(Stock)
+class StockAdmin(admin.ModelAdmin):
+    list_display = ('product', 'warehouse', 'quantity', 'last_restocked')
+    search_fields = ('product__name', 'warehouse__name')
+    list_filter = ('warehouse',)
+    
+@admin.register(Review)
+class ReviewAdmin(admin.ModelAdmin):
+    list_display = ('product', 'rating', 'comment', 'date', 'reviewer_name', 'reviewer_email')
+    search_fields = ('product__name', 'reviewer_name', 'reviewer_email')
+
+# ---------------------------------- Below is Not used currently ----------------------------------------------
+
+from rest_framework.pagination import PageNumberPagination
+class StandardResultsSetPagination(PageNumberPagination):
+    page_size = 100
+    page_size_query_param = 'page_size'
+    max_page_size = 1
+
+# class TaxViewSet(viewsets.ModelViewSet):
+#     queryset = Tax.objects.all()
+#     serializer_class = TaxSerializer
+
+# class TagViewSet(viewsets.ModelViewSet):
+#     queryset = Tag.objects.all()
+#     serializer_class = TagSerializer
+
+# class ProductClassViewSet(viewsets.ModelViewSet):
+#     queryset = ProductClass.objects.all()
+#     serializer_class = ProductClassSerializer
+
+# class ProductAttributeViewSet(viewsets.ModelViewSet):
+#     queryset = ProductAttribute.objects.all()
+#     serializer_class = ProductAttributeSerializer
+
+# class ProductImageViewSet(viewsets.ModelViewSet):
+#     queryset = VariantImages.objects.all()
+#     serializer_class = ProductVariantImageSerializer
+
+# class ProductVariantViewSet(viewsets.ModelViewSet):
+#     queryset = ProductVariants.objects.all()
+#     serializer_class = ProductVariantSerializer
+
+# class ReviewViewSet(viewsets.ModelViewSet):
+#     queryset = Review.objects.all()
+#     serializer_class = ReviewSerializer
+
+# class WarehouseViewSet(viewsets.ModelViewSet):
+#     queryset = Warehouse.objects.all()
+#     serializer_class = WarehouseSerializer
+
+# class StockViewSet(viewsets.ModelViewSet):
+#     queryset = Stock.objects.all()
+#     serializer_class = StockSerializer
+
+# ------------------------------- Below not getting used -------------------------------------------------
+# class ProductClassSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = ProductClass
+#         fields = '__all__'
+
+# class ProductAttributeSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = ProductAttribute
+#         fields = '__all__'
+
+# class TaxSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = Tax
+#         fields = '__all__'
+
+
+# class ReviewSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = Review
+#         fields = '__all__'
+
+# class WarehouseSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = Warehouse
+#         fields = '__all__'
+
+# class StockSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = Stock
+#         fields = '__all__'
