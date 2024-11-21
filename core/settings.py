@@ -105,7 +105,7 @@ DATABASES = {
     },
   }
 }
-# postgresql://neondb_owner:BPluN5RvcA0e@ep-floral-wave-a1cmmqzk.ap-southeast-1.aws.neon.tech/neondb?sslmode=require
+
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
 

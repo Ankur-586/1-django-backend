@@ -29,9 +29,11 @@ def error_response(message, status_code):
             'data': []
         }, status=status_code)
 '''--------------------------------------------------------------------'''
+# from django.core.validators import RegexValidator
+# alphabetic_validator = RegexValidator(r'^[a-zA-Z]*$', 'Only alphabetic characters are allowed.')
 def validate_no_special_chars(value):
-        if not value.isalnum():  
-            raise ValidationError('Only alphanumeric characters are allowed.')
+    if not value.isalnum():  
+        raise ValidationError('Only alphanumeric characters are allowed.')
 '''---------------------------------------------------------------------'''
 
 def construct_full_url(relative_url):

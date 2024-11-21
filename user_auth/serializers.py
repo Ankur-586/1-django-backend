@@ -61,7 +61,12 @@ class UserSerializer(serializers.ModelSerializer):
                 errors['email'] = "User with this email already exists!"
             if user.username == attrs['username']:
                 errors['username'] = "Username already exists!"
-
+        first_name = attrs['first_name']
+        last_name = attrs['last_name']
+        
+        if not (first_name.isalnum() and last_name.isalnum()):  
+            raise serializers.ValidationError('Only alphanumeric characters are allowed.')
+        
         if errors:
             raise serializers.ValidationError(errors)
             # raise CustomValidation(errors, status_code=status.HTTP_400_BAD_REQUEST)

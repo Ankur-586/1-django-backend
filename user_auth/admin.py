@@ -6,7 +6,7 @@ from .models import CustomUser, Role
 
 class UserAdmin(BaseUserAdmin):
     model = CustomUser
-    list_display = ['email', 'username', 'full_name', 'user_role', 'is_staff', 'is_superuser', 'is_active']
+    list_display = ['email', 'username', 'full_name', 'last_login', 'is_staff', 'is_superuser', 'is_active']
     search_fields = ['email', 'username', 'first_name', 'last_name']
     readonly_fields = ['date_joined']
 
@@ -20,17 +20,17 @@ class UserAdmin(BaseUserAdmin):
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('email', 'username', 'password1', 'password2', 'user_role', 'is_staff', 'is_superuser'),
+            'fields': ('email', 'username', 'password1', 'password2', 'first_name', 'last_name', 'user_role', 'is_staff', 'is_superuser'),
         }),
     )
 
     ordering = ['email']
     filter_horizontal = ()
 
-    def full_name(self, obj):
-        return obj.full_name
+    # def full_name(self, obj):
+    #     return obj.full_name
 
-    full_name.short_description = 'Full Name'
+    # full_name.short_description = 'Full Name'
 
 # Register the CustomUser model with the UserAdmin class
 admin.site.register(CustomUser, UserAdmin)

@@ -269,3 +269,10 @@ def partial_update(self, request, cart_id=None):
 #     print("No match found")
     
 # print('cart_01bOmkvbW9CeUx'.count())
+from django.core.exceptions import ValidationError
+
+def validate_no_special_chars(value):
+    if not value.isalnum():  
+        raise ValidationError('Only alphanumeric characters are allowed.')
+x = validate_no_special_chars(454)
+print(x)
