@@ -48,6 +48,12 @@ class CartItemPostSet(viewsets.ModelViewSet):
         cart_id = self.kwargs.get('cart_id')
         items_data = request.data.get('items', [])
 
+        if not isinstance(items_data, list):
+            return error_response("'items' must be a list", status.HTTP_400_BAD_REQUEST)
+        
+        if not items_data:
+            return error_response("items expects a list with data in dictionary format", status.HTTP_400_BAD_REQUEST)
+        
         response_data = []
         errors = []
 
@@ -188,11 +194,84 @@ class AssociateUserWithCart(viewsets.ModelViewSet):
         return Response(response, status=status.HTTP_200_OK)
 
 '''    
+class CartItemPostSet(viewsets.ModelViewSet):
+    authentication_classes = [JWTAuthentication]
+    queryset = CartItem.objects.all()
+    serializer_class = CartItemPostSerializer 
+    permission_classes = [AllowAny]
+    http_method_names = ['post']
+    
+    def create(self, request, *args, **kwargs):
+        user = request.user if request.user.is_authenticated else None
+        cart_id = self.kwargs.get('cart_id')
+        items_data = request.data.get('items', [])
+
+        if not isinstance(items_data, list):
+            return error_response("Invalid format", status.HTTP_400_BAD_REQUEST)
+        
+        response_data = []
+        errors = []
+
+        # Validate each item
+        for index, item_data in enumerate(items_data):
+            if not isinstance(item_data, dict):
+                errors.append(f"Item at index {index} must be a dictionary.")
+                continue
+
+            # Ensure each item has 'name' and 'quantity' fields
+            if 'variant' not in item_data or 'quantity' not in item_data:
+                errors.append(f"Item at index {index} must contain 'name' and 'quantity'.")
+                continue
+
+            # Check the validity of the 'name' field
+            if not isinstance(item_data['name'], str) or len(item_data['name']) > 100:
+                errors.append(f"Item at index {index} has an invalid 'name'.")
+                continue
+
+            # Check the validity of the 'quantity' field
+            if not isinstance(item_data['quantity'], int) or item_data['quantity'] < 1:
+                errors.append(f"Item at index {index} has an invalid 'quantity'.")
+                continue
+
+            # If validation passed, add to response_data
+            response_data.append(item_data)
+
+
+        if errors:
+            # If there are validation errors, return a 400 response with the error details
+            return Response({
+                'status': status.HTTP_400_BAD_REQUEST,
+                'message': "Validation failed",
+                'errors': errors
+            }, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            # Now create the Cart and CartItems if validation passed
+            cart = self.get_serializer().create(response_data, user, cart_id)
+        except Exception as e:
+            # In case of any unexpected error, return a 400 response with the error message
+            return Response({
+                'status': status.HTTP_400_BAD_REQUEST,
+                'message': f"Error creating cart items: {str(e)}",
+                'data': []
+            }, status=status.HTTP_400_BAD_REQUEST)
+        
+        # Retrieve the created cart items
+        cart_items = CartItem.objects.filter(cart_id=cart.cart_id)
+        response_data_final = self.get_serializer().get_response_data(cart, cart_items, user)
+
+        return Response({
+            'status': status.HTTP_201_CREATED,
+            'message': 'Items added to cart successfully.',
+            'cart': response_data_final
+        }, status=status.HTTP_201_CREATED)
+
 def get_serializer_context(self):
     context = super().get_serializer_context()
     context.update({"request": self.request})
     return context
-    
+
+Do not delete this. Needto ask chagpt this question.
 def create_or_update_cart_item(self, cart, variant, quantity):
         """
         Logic to create or update a CartItem for a given cart and variant.

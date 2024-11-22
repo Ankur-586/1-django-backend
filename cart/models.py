@@ -22,10 +22,7 @@ class Cart(models.Model):
     def _generate_cart_id(self):
         """Generate a custom cart ID."""
         random_string = ''.join(random.choices((string.ascii_letters).upper() + string.digits, k=13))
-        cart_id = f"cart_01{random_string}"
-        print(f"Generated Cart ID: {cart_id} (Length: {len(cart_id)})")  # Check length
-        return cart_id
-
+        return f"cart_01{random_string}"
 
     def save(self, *args, **kwargs):
         """Override save method to generate custom cart_id if not provided."""

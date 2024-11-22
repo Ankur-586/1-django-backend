@@ -14,7 +14,7 @@ class Role(models.Model):
 class CustomUser(AbstractBaseUser, PermissionsMixin):
     user_role = models.ForeignKey(Role, on_delete=models.SET_NULL, null=True, blank=True)
     email = models.EmailField(unique=True)
-    phone_number = models.CharField(unique=True, blank=True, null=True)
+    phone_number = models.CharField(max_length=13, unique=True, blank=True, null=True)
     username = models.CharField(max_length=150, unique=True)
     first_name = models.CharField(max_length=50, blank=True, validators=[validate_no_special_chars])
     last_name = models.CharField(max_length=50, blank=True)
