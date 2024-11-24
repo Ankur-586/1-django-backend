@@ -196,88 +196,40 @@ class CartItemPostSerializer(serializers.ModelSerializer):
         }
     
 '''
-if quantity == 0:
+def create_or_update_cart_item(self, cart, variant, quantity):
+        """
+        Logic to create or update a CartItem for a given cart and variant.
+        If the quantity is 0, remove the cart item.
+        """
+        if quantity == 0:
             # Try to find the cart item and delete it
             try:
                 cart_item = CartItem.objects.get(cart_id=cart, variant=variant)
                 cart_item.delete()
-                return Response({
-                    'status': status.HTTP_200_OK,
-                    'message': 'Cart item removed successfully.',
-                }, status=status.HTTP_200_OK)
+                return "Deleted"  # Return None, indicating the item has been removed
             except CartItem.DoesNotExist:
-                return Response({
-                    'status': status.HTTP_404_NOT_FOUND,
-                    'message': 'Cart item not found.',
-                }, status=status.HTTP_404_NOT_FOUND)
+                return "NotFound"  # If not found, return None as it was already removed
 
-items_data = self.context["request"].data.get('items', [])
-    # Collect all variant IDs from the items
-    variant_ids = {item.get('variant') for item in items_data if item.get('variant') is not None}
-    # Fetch existing variants in a single query
-    existing_variants = set(ProductVariants.objects.filter(pk__in=variant_ids).values_list('pk', flat=True))
-    # Identify non-existing variants
-    non_existing_variants = variant_ids - existing_variants
-    if non_existing_variants:
-        # Use a single error message for one or multiple non-existing IDs
-        variant_ids_str = ', '.join(map(str, non_existing_variants))
-        raise CustomValidation(
-            f"No product_variant(s) with the given ID(s): {variant_ids_str} were found",
-            status_code=status.HTTP_400_BAD_REQUEST
-        )
-    return super().to_internal_value(data)
-
-def to_internal_value(self, data):
-    variant_id = data.get('variant')
-    print(variant_id)
-    if not ProductVariants.objects.filter(pk=variant_id).exists():
-        raise CustomValidation("No product with the given id was found", status_code=status.HTTP_400_BAD_REQUEST)
-    return super().to_internal_value(data)
-
-def create(self, validated_data):
-        request = self.context['request']
-        user = request.user if request.user.is_authenticated else None
-        print(user)
-        if user is None:
-            session = request.session
-            cart_id = session.get('cart_id', None)
-            if cart_id:
-                cart = Cart.objects.get(cart_id=cart_id)
-            else:
-                cart = Cart.objects.create()
-                session['cart_id'] = str(cart.cart_id)
-        else:
-            cart, created = Cart.objects.get_or_create(user=user)
-            
-        cart_items = []
-        variant = validated_data.pop('variant_id')  # Retrieve and remove variant_id from item_data
-
-        validated_data['cart_id'] = cart
-        validated_data['variant'] = variant
-        validated_data['price'] = validated_data.get('price', variant.price)
-        
-        cart_item = CartItem(**validated_data)
-        cart_items.append(cart_item)
-
-        CartItem.objects.bulk_create(cart_items)
-        
-        # Prepare the response data
-        response_data = [{
-            "cart_id": cart.cart_id,
-            "variant_id": cart_item.variant.pk,
-            "variant_name": cart_item.variant.variant_name,
-            "variant_image": cart_item.variant.images.first().image.url if cart_item.variant.images.exists() else None, # i have used related_name property
-            "quantity": cart_item.quantity,
-            "price": cart_item.price,
-            "total_price": cart_item.calculate_price()
-        } for cart_item in cart_items]
-
-        return response_data
+        # Now, check if the CartItem exists manually
+        try:
+            cart_item = CartItem.objects.get(cart_id=cart, variant=variant)
+            # If found, update the quantity and price
+            cart_item.quantity = self.validate_quantity(quantity)
+            cart_item.price = variant.price
+            cart_item.save()  # Update the existing record
+            return cart_item
+        except CartItem.DoesNotExist:
+            # If the CartItem doesn't exist, create a new one
+            cart_item = CartItem(
+                cart_id=cart,
+                variant=variant,
+                quantity=self.validate_quantity(quantity),
+                price=variant.price
+            )
+            cart_item.cart_item_id = cart_item._generate_cart_item_id()  # Generate the ID
+            cart_item.save()  # Save the new record
+            return cart_item
 '''
-# '''
-# cart functionality in drf without using session: 
-# case 1: if cart is created when there is no user associated with it.
-# case 2: if cart is created and then later bind a user to that perticular cart
 # ------------------------------------------------------
 
 # i dont have region id in my db. i will add later. but for future
