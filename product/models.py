@@ -83,7 +83,8 @@ class Product(models.Model):
      
     @property
     def product_stock(self):  # in this
-        return 'Instock' if self.is_active else 'Out Of Stock'
+        # return 'Instock' if self.variants > 0 else 'Out Of Stock'
+        return 'Instock' if self.variants.filter(stock__gt=0).exists() else 'Out of Stock'  # Check if any variant has stock > 0
     
     def __str__(self):
         return self.product_name
@@ -111,7 +112,7 @@ class ProductVariants(models.Model):
     
     @property
     def proudct_variant_stock(self):
-        return 'Instock' if self.is_active else 'Out Of Stock'
+        return 'Instock' if self.stock > 0 else 'Out Of Stock'
     
     class Meta:
         verbose_name = 'Product Variant'

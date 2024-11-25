@@ -14,10 +14,20 @@ class CartItemSerializer(serializers.ModelSerializer):
     -> SerializerMethodField is read only
     '''
     variant = serializers.SerializerMethodField()
+    subtotal_amount = serializers.SerializerMethodField()
 
     class Meta:
         model = CartItem
-        fields = ['variant']
+        fields = ['cart_item_id','created_at','variant','subtotal_amount']
+    
+    def get_cart_item_id(self,obj):
+        cart_item_id = obj.pk
+        created_at = obj.pk.created_at
+        
+        return {
+            'cart_item_id' : cart_item_id,
+            'created_at': created_at
+        }
     
     def get_variant(self, obj):
         '''
@@ -27,21 +37,24 @@ class CartItemSerializer(serializers.ModelSerializer):
         variant_name = product_variant.variant_name
         thumbnail = product_variant.images.first().image.url if product_variant.images.exists() else None
         price = product_variant.price
-        quantity = obj.quantity
-        item_total = obj.calculate_price()
         product = {
             'id': obj.variant.product.id,
             'product_name': obj.variant.product.product_name,
             'product_image': product_variant.product.thumbnail.url if product_variant.product.thumbnail.url else None
         }
         return {
-            'id': product_variant.pk,
+            'variant_id': product_variant.pk,
             'variant_title': variant_name,
             'thumbnail': thumbnail,
             'item_price': price,
-            'quantity':quantity,
-            'item_total':item_total,
             'product': product
+        }
+    def get_subtotal_amount(self, obj):
+        quantity = obj.quantity
+        item_total = obj.calculate_price()
+        return {
+            'quantity' : quantity,
+            'item_total' : item_total
         }
 
 class CartSerializer(serializers.ModelSerializer):
@@ -125,6 +138,9 @@ class CartItemPostSerializer(serializers.ModelSerializer):
         return super().to_internal_value(data) 
     
     def create(self, validated_data, user, cart_id):
+        '''
+        This is my post Response
+        '''
         cart, created = Cart.objects.get_or_create(user=user, cart_id=cart_id)
 
         cart_items = []
@@ -148,27 +164,28 @@ class CartItemPostSerializer(serializers.ModelSerializer):
         CartItem.objects.bulk_create(cart_items)
         return cart
 
-    def create_or_update_cart_item(self, cart, variant, quantity):
+    def create_or_update_cart_item(self, cart, cart_item, quantity):
         """
         Logic to create or update a CartItem for a given cart and variant.
         If the quantity is 0, remove the cart item.
         """
+        print('from serilaizer',cart, cart_item)
         if quantity == 0:
             # Try to find the cart item and delete it
             try:
-                cart_item = CartItem.objects.get(cart_id=cart, variant=variant)
-                cart_item.delete()
+                cart_items = CartItem.objects.get(cart_id=cart, cart_item_id=cart_item)
+                cart_items.delete()
                 return "Deleted"  # Return None, indicating the item has been removed
             except CartItem.DoesNotExist:
                 return "NotFound"  # If not found, return None as it was already removed
 
         # Otherwise, update or create the cart item
-        cart_item, created = CartItem.objects.update_or_create(
+        cart_items, created = CartItem.objects.update_or_create(
             cart_id=cart,
-            variant=variant,
+            cart_item_id = cart_item,
             quantity=self.validate_quantity(quantity)
         )
-        return cart_item
+        return cart_items
     
     def get_response_data(self, cart, cart_items, user):
         items_data = []

@@ -99,29 +99,29 @@ class CartItemPostSet(viewsets.ModelViewSet):
         }, status=status.HTTP_201_CREATED)
 
 class CartItemUpdateSet(viewsets.ViewSet):
-    queryset = Cart.objects.all()
+    queryset = CartItem.objects.all()
     serializer_class = CartItemPostSerializer
     
-    def partial_update(self, request, cart_id, variant_id):
-        
+    def partial_update(self, request, cart_id, cart_item_id):
+        print('cart_item_id from views',cart_item_id)
         try:
             cart = Cart.objects.get(cart_id=cart_id)
         except Cart.DoesNotExist:
             return error_response('Cart with the provided ID does not exist.', status.HTTP_404_NOT_FOUND)
         
-        if not variant_id:
-            return error_response("Variant ID is required", status.HTTP_400_BAD_REQUEST)
+        if not cart_item_id:
+            return error_response("CartItem ID is required", status.HTTP_400_BAD_REQUEST)
         
         try:
-            variant = ProductVariants.objects.get(id=variant_id)
-        except ProductVariants.DoesNotExist:
-            return error_response("Variant not found", status.HTTP_400_BAD_REQUEST)
+            cart_item = CartItem.objects.get(cart_item_id=cart_item_id)
+        except CartItem.DoesNotExist:
+            return error_response("CartItem not found", status.HTTP_400_BAD_REQUEST)
         
         quantity = request.data.get('quantity') 
         
         serializer = self.serializer_class()
         try:
-            cart_item = serializer.create_or_update_cart_item(cart, variant, quantity)
+            cart_items = serializer.create_or_update_cart_item(cart, cart_item, quantity)
         except Exception as e:
             return Response({
                 'status': status.HTTP_400_BAD_REQUEST,
@@ -130,21 +130,21 @@ class CartItemUpdateSet(viewsets.ViewSet):
             }, status=status.HTTP_400_BAD_REQUEST) 
         
         # If cart_item is None, it was deleted
-        if cart_item == "Deleted":
+        if cart_items == "Deleted":
             return Response({
                 'status': status.HTTP_200_OK,
                 'message': 'Cart item removed successfully.',
                 'data': []
             }, status=status.HTTP_200_OK)
         
-        if cart_item == "NotFound":
+        if cart_items == "NotFound":
             return Response({
                 'status': status.HTTP_200_OK,
                 'message': 'Cart item not found.',
                 'data': []
             }, status=status.HTTP_200_OK)
 
-        serialized_data = self.serializer_class(cart_item)
+        serialized_data = self.serializer_class(cart_items)
         return Response({
             'status': status.HTTP_200_OK,
             'message': 'Quantity updated successfully',

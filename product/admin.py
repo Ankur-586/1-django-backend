@@ -29,7 +29,7 @@ class ProductVariantAdmin(admin.ModelAdmin):
     inlines = [VariantImageInline]
     list_display = ('id', 'product', 'variant_name', 'sku', 'price',
                     'stock', 'proudct_variant_stock', 'is_active')
-    list_editable = ('is_active',)
+    list_editable = ('is_active','stock')
     search_fields = ('product__name', 'variant_name')
 
 @admin.register(VariantImages)

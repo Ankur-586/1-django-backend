@@ -47,8 +47,8 @@ class CartItem(models.Model):
     def __str__(self):
         return str(self.cart_item_id)
     
-    class Meta:
-        unique_together = ('cart_id', 'variant') 
+    # class Meta:
+    #     unique_together = ('cart_id', 'cart_item_id') 
 
     def calculate_price(self):
         return self.quantity * self.price

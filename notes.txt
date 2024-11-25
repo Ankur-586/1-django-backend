@@ -126,3 +126,26 @@ cart_item_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=F
 
 # python .\manage.py dumpdata > D:\website\backend\db_backup.json
 # python manage.py loaddata D:\website\backend\db_backup.json
+
+def create_or_update_cart_item(self, cart, variant, quantity):
+        """
+        Logic to create or update a CartItem for a given cart and variant.
+        If the quantity is 0, remove the cart item.
+        """
+        if quantity == 0:
+            # Try to find the cart item and delete it
+            try:
+                cart_item = CartItem.objects.get(cart_id=cart, variant=variant)
+                cart_item.delete()
+                return "Deleted"  # Return None, indicating the item has been removed
+            except CartItem.DoesNotExist:
+                return "NotFound"  # If not found, return None as it was already removed
+
+        # Otherwise, update or create the cart item
+        cart_item, created = CartItem.objects.update_or_create(
+            cart_id=cart,
+            variant=variant,
+            quantity=self.validate_quantity(quantity)
+        )
+        return cart_item
+

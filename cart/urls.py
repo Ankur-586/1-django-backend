@@ -13,7 +13,7 @@ urlpatterns = [
     path('', include(router.urls)),
     path('cart/<str:cart_id>/', CartViewSet.as_view(), name='cart-detail'),
     path('user_cart/<str:cart_id>/', AssociateUserWithCart.as_view({'patch': 'update'}), name='associate-user-with-cart'),
-    path('cart_update/<str:cart_id>/<int:variant_id>/', CartItemUpdateSet.as_view({'patch': 'partial_update'}), name='update-item-in-cart'),
+    path('cart_update/<str:cart_id>/cart-items/<str:cart_item_id>/', CartItemUpdateSet.as_view({'patch': 'partial_update'}), name='update-item-in-cart'),
 ]
 
 
