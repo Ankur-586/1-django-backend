@@ -9,7 +9,7 @@ from django.utils import timezone
 
 class CartItemSerializer(serializers.ModelSerializer):
     '''
-    -> This serializer is being used in the CartSerializer Below and is only for read only
+    -> This serializer is being used in the CartSerializer Below and is for read only
 
     -> SerializerMethodField is read only
     '''
@@ -20,7 +20,7 @@ class CartItemSerializer(serializers.ModelSerializer):
         model = CartItem
         fields = ['cart_item_id','created_at','variant','subtotal_amount']
     
-    def get_cart_item_id(self,obj):
+    def get_cart_details(self,obj):
         cart_item_id = obj.pk
         created_at = obj.pk.created_at
         
@@ -49,6 +49,7 @@ class CartItemSerializer(serializers.ModelSerializer):
             'item_price': price,
             'product': product
         }
+    
     def get_subtotal_amount(self, obj):
         quantity = obj.quantity
         item_total = obj.calculate_price()
@@ -163,7 +164,33 @@ class CartItemPostSerializer(serializers.ModelSerializer):
         # Bulk create cart items
         CartItem.objects.bulk_create(cart_items)
         return cart
-
+    
+    def get_response_data(self, cart, cart_items, user):
+        items_data = []
+        for cart_item in cart_items:
+            items_data.append({
+                "variant": {
+                    "variant_id": cart_item.variant.pk,
+                    "variant_name": cart_item.variant.variant_name,
+                    "variant_image": cart_item.variant.images.first().image.url if cart_item.variant.images.exists() else None,
+                    "product": {
+                        "category": cart_item.variant.product.category.category_name,
+                        "name": cart_item.variant.product.product_name,
+                    }
+                },
+                "quantity": cart_item.quantity,
+                "price": cart_item.price,
+                "total_price": cart_item.calculate_price(),
+            })
+        return {
+            'cart_id': cart.cart_id,
+            "created_at": cart.created_at,
+            "updated_at": cart.updated_at,
+            "user": user.username if user else None,
+            "items": items_data
+        }
+    
+    '''
     def update_cart_item(self, cart, cart_item_id, quantity):
         """
         Logic to update a CartItem for a given cart and cart_item.
@@ -171,8 +198,7 @@ class CartItemPostSerializer(serializers.ModelSerializer):
         
         if quantity is being deleted like -1. Then observer.
         """
-        MAX_QUANTITY = 5
-
+        
         if quantity == 0:
             # Try to find the cart item and delete it
             try:
@@ -184,6 +210,8 @@ class CartItemPostSerializer(serializers.ModelSerializer):
         
         # Get the existing CartItem
         cart_item_instance = CartItem.objects.get(cart_id=cart, cart_item_id=cart_item_id)
+
+        MAX_QUANTITY = cart_item_instance.variant.product.maximum_order_quantity
 
         # Calculate the new quantity (add the incoming quantity to the existing one)
         new_quantity = cart_item_instance.quantity + quantity
@@ -200,42 +228,73 @@ class CartItemPostSerializer(serializers.ModelSerializer):
     
     def add_item_to_cart(self, cart, variant, quantity):
 
-        cart_item = Cart.objects.get(cart_id=cart)
+        # Try to get the ProductVariant instance
+        try:
+            product_variant = ProductVariants.objects.get(id=variant)
+        except ProductVariants.DoesNotExist:
+            raise ValueError("Product variant does not exist.")
+
+        # Check if the CartItem for this variant already exists in the given cart
+        cart_item = CartItem.objects.filter(cart_id=cart, variant_id=variant).first()
+
+        MAX_QUANTITY = cart_item.variant.product.maximum_order_quantity
         
-        product_variant = ProductVariants.objects.get(id=variant)
-        item = CartItem.objects.create(
-            cart_id = cart_item,
-            variant = product_variant,
-            quantity = quantity,
-        )
-        return item
-    
-    def get_response_data(self, cart, cart_items, user):
+        if cart_item:
+            # If CartItem already exists, update the quantity
+            cart_item.quantity += quantity
+            if cart_item.quantity > MAX_QUANTITY:
+                raise CustomValidation("Total quantity can't exceed 5.", status_code=status.HTTP_400_BAD_REQUEST)
+            
+            cart_item.save()
+            return cart_item
+        else:
+            # If CartItem doesn't exist, create a new CartItem
+            cart_item = CartItem.objects.create(
+                cart_id=cart,
+                variant=product_variant,
+                quantity=quantity,
+                price = product_variant.price
+            )
+        cart_item.price = cart_item.calculate_price()  # Add this line if you need to save the total price in the model
+        cart_item.save()
+
+        return cart_item
+    '''
+'''
+def get_cart_response_data(self, cart, cart_items, user):
+        """
+        A helper function to format the cart response in the required structure.
+        This is reused in both GET and POST responses.
+        """
         items_data = []
         for cart_item in cart_items:
             items_data.append({
+                "cart_item_id": cart_item.cart_item_id,
+                "created_at": cart_item.created_at,
                 "variant": {
                     "variant_id": cart_item.variant.pk,
-                    "variant_name": cart_item.variant.variant_name,
-                    "variant_image": cart_item.variant.images.first().image.url if cart_item.variant.images.exists() else None,
-                    # "product": {
-                    #     "category": cart_item.variant.product.category.category_name,
-                    #     "name": cart_item.variant.product.product_name,
-                    # }
+                    "variant_title": cart_item.variant.variant_name,
+                    "thumbnail": cart_item.variant.images.first().image.url if cart_item.variant.images.exists() else None,
+                    "item_price": cart_item.price,
+                    "product": {
+                        "id": cart_item.variant.product.id,
+                        "product_name": cart_item.variant.product.product_name,
+                        "product_image": cart_item.variant.product.thumbnail.url if cart_item.variant.product.thumbnail else None
+                    }
                 },
-                "quantity": cart_item.quantity,
-                "price": cart_item.price,
-                "total_price": cart_item.calculate_price(),
+                "subtotal_amount": {
+                    "quantity": cart_item.quantity,
+                    "item_total": cart_item.calculate_price(),
+                }
             })
+
         return {
             'cart_id': cart.cart_id,
-            "created_at": cart.created_at,
-            "updated_at": cart.updated_at,
-            "user": user.username if user else None,
-            "items": items_data
+            'timestamps': self.get_timestamps(cart),
+            'user': self.get_user(cart),
+            'cart_items': items_data
         }
-    
-'''
+------------
 Do Not Delete:
 --------------
 def create_or_update_cart_item(self, cart, variant, quantity):
