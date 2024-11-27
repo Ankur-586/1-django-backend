@@ -119,18 +119,19 @@ class CartItemPostSerializer(serializers.ModelSerializer):
         return CartItem.objects.filter(cart_id=cart)
     
     def add_item_to_cart(self, cart, variant, quantity):
-        print('from serilaizers',variant)
-        # Try to get the ProductVariant instance
+
         try:
             product_variant = ProductVariants.objects.get(id=variant)
+            print('from serilaizers: product_variant',product_variant.pk)
         except ProductVariants.DoesNotExist:
             raise ValueError("Product variant does not exist in theh database.")
 
         # Check if the CartItem for this variant already exists in the given cart
-        cart_item = CartItem.objects.filter(cart_id=cart, variant=variant).first()
+        cart_item = CartItem.objects.filter(cart_id=cart, variant=product_variant.pk).first()
+        
         MAX_QUANTITY = cart_item.variant.product.maximum_order_quantity
         
-        if not cart_item:
+        if cart_item:
             print('first_part')
             # If CartItem already exists, update the quantity
             cart_item.quantity += quantity
@@ -145,10 +146,10 @@ class CartItemPostSerializer(serializers.ModelSerializer):
             cart_item = CartItem.objects.create(
                 cart_id=cart,
                 variant=product_variant,
-                quantity=quantity,
+                quantity=self.validate_quantity(quantity),
                 price = product_variant.price
             )
-        cart_item.price = cart_item.calculate_price()  # Add this line if you need to save the total price in the model
+        cart_item.price = cart_item.calculate_price() 
         cart_item.save()
 
         return cart_item
@@ -156,6 +157,50 @@ class CartItemPostSerializer(serializers.ModelSerializer):
 NOTE: In the response. when i am updating a object it going up and down. 
 
 ------------
+def add_item_to_cart(self, cart, variant, quantity):
+    try:
+        # Retrieve the product variant by ID
+        product_variant = ProductVariants.objects.get(id=variant)
+        print('From serializer: Product variant', product_variant.pk)
+    except ProductVariants.DoesNotExist:
+        raise ValueError("Product variant does not exist in the database.")
+
+    # Check if the CartItem for this variant already exists in the given cart
+    cart_item = CartItem.objects.filter(cart_id=cart, variant=product_variant).first()
+    
+    # Handle case where the cart item exists
+    if cart_item:
+        print('Cart item found, updating quantity.')
+        # Get the maximum quantity allowed for this product
+        MAX_QUANTITY = product_variant.product.maximum_order_quantity
+        # Update the cart item's quantity
+        cart_item.quantity += quantity
+        
+        if cart_item.quantity > MAX_QUANTITY:
+            raise CustomValidation(
+                f"Total quantity can't exceed {MAX_QUANTITY}.",
+                status_code=status.HTTP_400_BAD_REQUEST
+            )
+        
+        cart_item.save()
+        return cart_item
+    
+    # Handle case where the cart item does not exist
+    else:
+        print('Creating a new cart item.')
+        cart_item = CartItem.objects.create(
+            cart_id=cart,
+            variant=product_variant,
+            quantity=self.validate_quantity(quantity),
+            price=product_variant.price
+        )
+
+    # Recalculate the price and save the cart item
+    cart_item.price = cart_item.calculate_price()
+    cart_item.save()
+
+    return cart_item
+
 Do Not Delete:
 --------------
 def create_or_update_cart_item(self, cart, variant, quantity):

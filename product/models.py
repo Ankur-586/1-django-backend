@@ -103,6 +103,7 @@ class ProductVariants(models.Model):
     variant_quantity = models.IntegerField(default=1)
     stock = models.PositiveIntegerField(default=1)
     meta_data = models.OneToOneField(Meta, on_delete=models.SET_NULL,related_name='variant_meta',null=True,blank=True)
+    variant_thumbnail = models.ImageField(upload_to='variants_thumbnails/', null=True, blank=True)
     is_active = models.BooleanField(default=True, db_index=True)
     created_at = models.DateTimeField(auto_now_add=True, db_index=True)
     updated_at = models.DateTimeField(auto_now=True)
