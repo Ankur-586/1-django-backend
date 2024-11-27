@@ -29,7 +29,7 @@ def get_cart_response_data(cart, cart_items, user):
             "variant": {
                 "variant_id": variant.pk,
                 "variant_title": variant.variant_name,
-                "variant_images": variant.variant_thumbnail.url if variant.variant_thumbnail else None,
+                "variant_thumbnail": variant.variant_thumbnail.url if variant.variant_thumbnail else None,
                 "item_price": cart_item.price,
                 "product": {
                     "id": product.id,
