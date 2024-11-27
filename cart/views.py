@@ -4,9 +4,9 @@ from rest_framework import viewsets, status, generics
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework_simplejwt.authentication import JWTAuthentication
-from rest_framework.exceptions import ValidationError
 
 from core.utils import error_response
+from cart.utils import get_cart_response_data
 from .models import Cart, CartItem
 from product.models import ProductVariants
 from .serializers import CartSerializer, CartItemPostSerializer
@@ -20,16 +20,27 @@ class CartViewSet(generics.RetrieveAPIView):
     
     def retrieve(self, request, *args, **kwargs):
         try:
-            # Get the object based on the primary key provided in the URL
             instance = self.get_object()
-            serializer = self.get_serializer(instance) 
+    
+            # We have retrived this using reverse relationship
+            cart_items = instance.cart_items.all()
+            
+            response_data = get_cart_response_data(
+                cart = instance, 
+                cart_items = cart_items, 
+                user = request.user if request.user.is_authenticated else None
+            )
+            
+            # Return the response with the structured data
             payload = {
                 "status": status.HTTP_200_OK,
                 "message": 'Cart Detail',
-                "data": serializer.data
+                "data": response_data
             }
             return Response(payload, status=status.HTTP_200_OK)
+        
         except Exception as e:
+            # In case of error, return a bad request response
             return Response({
                 "status": status.HTTP_400_BAD_REQUEST,
                 "message": str(e),
@@ -56,8 +67,7 @@ class CartItemPostSet(viewsets.ModelViewSet):
         
         response_data = []
         errors = []
-
-        # Validate each item
+        
         for item_data in items_data:
             item_serializer = self.get_serializer(data=item_data)
             if not item_serializer.is_valid():
@@ -70,7 +80,6 @@ class CartItemPostSet(viewsets.ModelViewSet):
                 response_data.append(item_serializer.validated_data)
 
         if errors:
-            # If there are validation errors, return a 400 response with the error details
             return Response({
                 'status': status.HTTP_400_BAD_REQUEST,
                 'message': "Validation failed",
@@ -78,114 +87,114 @@ class CartItemPostSet(viewsets.ModelViewSet):
             }, status=status.HTTP_400_BAD_REQUEST)
 
         try:
-            # Now create the Cart and CartItems if validation passed
+            # create the Cart and CartItems if validation passed
             cart = self.get_serializer().create(response_data, user, cart_id)
         except Exception as e:
-            # In case of any unexpected error, return a 400 response with the error message
             return Response({
                 'status': status.HTTP_400_BAD_REQUEST,
                 'message': f"Error creating cart items: {str(e)}",
                 'data': []
             }, status=status.HTTP_400_BAD_REQUEST)
-        
-        # Retrieve the created cart items
-        cart_items = CartItem.objects.filter(cart_id=cart.cart_id)
-        response_data_final = self.get_serializer().get_response_data(cart, cart_items, user)
 
+        cart_items = CartItem.objects.filter(cart_id=cart)
+        # response_data_final = self.get_serializer().get_cart_response_data(cart, cart_items, user)
+        
+        response_data_final = get_cart_response_data(cart, cart_items, user)
+        
         return Response({
             'status': status.HTTP_201_CREATED,
             'message': 'Items added to cart successfully.',
             'cart': response_data_final
         }, status=status.HTTP_201_CREATED)
 
-# class CartItemUpdateSet(viewsets.ViewSet):
-#     '''
-#     This view update the quantiy of variant
-#     and if quantity = 0 is posted then then 
-#     it removes the variant from cart_item
-#     '''
-#     queryset = CartItem.objects.all()
-#     serializer_class = CartItemPostSerializer
+class CartItemUpdateSet(viewsets.ViewSet):
+    '''
+    This view update the quantiy of variant
+    and if quantity = 0 is posted then then 
+    it removes the variant from cart_item
+    '''
+    queryset = CartItem.objects.all()
+    serializer_class = CartItemPostSerializer
     
-#     def partial_update(self, request, cart_id, cart_item_id):
+    def partial_update(self, request, cart_id, cart_item_id):
         
-#         try:
-#             cart = Cart.objects.get(cart_id=cart_id)
-#         except Cart.DoesNotExist:
-#             return error_response('Cart with the provided ID does not exist.', status.HTTP_404_NOT_FOUND)
+        try:
+            cart = Cart.objects.get(cart_id=cart_id)
+        except Cart.DoesNotExist:
+            return error_response('Cart with the provided ID does not exist.', status.HTTP_404_NOT_FOUND)
         
-#         if not cart_item_id:
-#             return error_response("CartItem ID is required", status.HTTP_400_BAD_REQUEST)
+        if not cart_item_id:
+            return error_response("CartItem ID is required", status.HTTP_400_BAD_REQUEST)
         
-#         try:
-#             cart_item = CartItem.objects.get(cart_item_id=cart_item_id)
-#         except CartItem.DoesNotExist:
-#             return error_response("CartItem not found", status.HTTP_400_BAD_REQUEST)
+        try:
+            cart_item = CartItem.objects.get(cart_item_id=cart_item_id)
+        except CartItem.DoesNotExist:
+            return error_response("CartItem not found", status.HTTP_400_BAD_REQUEST)
         
-#         quantity = request.data.get('quantity') 
+        quantity = request.data.get('quantity') 
         
-#         serializer = self.serializer_class()
-#         try:
-#             cart_items = serializer.update_cart_item(cart, cart_item, quantity)
-#         except Exception as e:
-#             return Response({
-#                 'status': status.HTTP_400_BAD_REQUEST,
-#                 'message': str(e),
-#                 'data': []
-#             }, status=status.HTTP_400_BAD_REQUEST) 
+        serializer = self.serializer_class()
+        try:
+            cart_items = serializer.update_cart_item(cart, cart_item, quantity)
+        except Exception as e:
+            return Response({
+                'status': status.HTTP_400_BAD_REQUEST,
+                'message': str(e),
+                'data': []
+            }, status=status.HTTP_400_BAD_REQUEST) 
         
-#         # If cart_item is None, it was deleted
-#         if cart_items == "Deleted":
-#             return Response({
-#                 'status': status.HTTP_200_OK,
-#                 'message': 'Cart item removed successfully.',
-#                 'data': []
-#             }, status=status.HTTP_200_OK)
+        # If cart_item is None, it was deleted
+        if cart_items == "Deleted":
+            return Response({
+                'status': status.HTTP_200_OK,
+                'message': 'Cart item removed successfully.',
+                'data': []
+            }, status=status.HTTP_200_OK)
         
-#         if cart_items == "NotFound":
-#             return Response({
-#                 'status': status.HTTP_200_OK,
-#                 'message': 'Cart item not found.',
-#                 'data': []
-#             }, status=status.HTTP_200_OK)
+        if cart_items == "NotFound":
+            return Response({
+                'status': status.HTTP_200_OK,
+                'message': 'Cart item not found.',
+                'data': []
+            }, status=status.HTTP_200_OK)
 
-#         serialized_data = self.serializer_class(cart_items)
-#         return Response({
-#             'status': status.HTTP_200_OK,
-#             'message': 'Quantity updated successfully',
-#             'data': serialized_data.data
-#         }, status=status.HTTP_200_OK)
+        serialized_data = get_cart_response_data(cart, cart_items, user=None)
+        return Response({
+            'status': status.HTTP_200_OK,
+            'message': 'Quantity updated successfully',
+            'data': serialized_data
+        }, status=status.HTTP_200_OK)
                 
-# class CartItemUpdateExistingItemSet(viewsets.ViewSet):
-#     queryset = CartItem.objects.all()
-#     serializer_class = CartItemPostSerializer
+class CartItemUpdateExistingItemSet(viewsets.ViewSet):
+    queryset = CartItem.objects.all()
+    serializer_class = CartItemPostSerializer
 
-#     def create(self, request, cart_id):
-#         try:
-#             cart = Cart.objects.get(cart_id=cart_id)
-#         except Cart.DoesNotExist:
-#             return error_response('Cart with the provided ID does not exist.', status.HTTP_404_NOT_FOUND)
+    def create(self, request, cart_id):
+        try:
+            cart = Cart.objects.get(cart_id=cart_id)
+        except Cart.DoesNotExist:
+            return error_response('Cart with the provided ID does not exist.', status.HTTP_404_NOT_FOUND)
         
-#         variant = request.data.get('variant_id')
-#         quantity = request.data.get('quantity')
+        variant = request.data.get('variant')
+        quantity = request.data.get('quantity')
 
-#         serializer = self.serializer_class()
+        serializer = self.serializer_class()
         
-#         try:
-#             cart_item = serializer.add_item_to_cart(cart, variant, quantity)
-#         except Exception as e:
-#             return Response({
-#                 'status': status.HTTP_400_BAD_REQUEST,
-#                 'message': str(e),
-#                 'data': []
-#             }, status=status.HTTP_400_BAD_REQUEST)
+        try:
+            cart_item = serializer.add_item_to_cart(cart, variant, quantity)
+        except Exception as e:
+            return Response({
+                'status': status.HTTP_400_BAD_REQUEST,
+                'message': str(e),
+                'data': []
+            }, status=status.HTTP_400_BAD_REQUEST)
         
-#         serialized_data = self.serializer_class(cart_item)
-#         return Response({
-#             'status': status.HTTP_200_OK,
-#             'message': 'Item added to Cart Items',
-#             'data': serialized_data.data
-#         }, status=status.HTTP_200_OK)
+        serialized_data = self.serializer_class(cart_item)
+        return Response({
+            'status': status.HTTP_200_OK,
+            'message': 'Item added to Cart',
+            'data': serialized_data.data
+        }, status=status.HTTP_200_OK)
 
 class AssociateUserWithCart(viewsets.ModelViewSet):
     '''

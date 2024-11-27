@@ -7,95 +7,13 @@ from core.utils import CustomValidation
 
 from django.utils import timezone
 
-class CartItemSerializer(serializers.ModelSerializer):
-    '''
-    -> This serializer is being used in the CartSerializer Below and is for read only
-
-    -> SerializerMethodField is read only
-    '''
-    variant = serializers.SerializerMethodField()
-    subtotal_amount = serializers.SerializerMethodField()
-
-    class Meta:
-        model = CartItem
-        fields = ['cart_item_id','created_at','variant','subtotal_amount']
-    
-    def get_cart_details(self,obj):
-        cart_item_id = obj.pk
-        created_at = obj.pk.created_at
-        
-        return {
-            'cart_item_id' : cart_item_id,
-            'created_at': created_at
-        }
-    
-    def get_variant(self, obj):
-        '''
-        obj : cart_item_id
-        '''
-        product_variant = obj.variant
-        variant_name = product_variant.variant_name
-        thumbnail = product_variant.images.first().image.url if product_variant.images.exists() else None
-        price = product_variant.price
-        product = {
-            'id': obj.variant.product.id,
-            'product_name': obj.variant.product.product_name,
-            'product_image': product_variant.product.thumbnail.url if product_variant.product.thumbnail.url else None
-        }
-        return {
-            'variant_id': product_variant.pk,
-            'variant_title': variant_name,
-            'thumbnail': thumbnail,
-            'item_price': price,
-            'product': product
-        }
-    
-    def get_subtotal_amount(self, obj):
-        quantity = obj.quantity
-        item_total = obj.calculate_price()
-        return {
-            'quantity' : quantity,
-            'item_total' : item_total
-        }
-
 class CartSerializer(serializers.ModelSerializer):
-    cart_items = CartItemSerializer(many=True)
     user = serializers.SerializerMethodField()
     timestamps = serializers.SerializerMethodField()
     
     class Meta:
         model = Cart
-        fields = ['cart_id','timestamps', 'user','cart_items']
-    
-    def get_timestamps(self, obj):
-        # print(dir(obj))
-        """
-        This function converts created_at and updated_at timestamps to properly formatted datetime strings.
-        """
-        timestamps = {}
-        
-        if obj.created_at:
-            local_created_time = timezone.localtime(obj.created_at)
-            timestamps['created_at'] = local_created_time.strftime('%Y-%m-%d %H:%M:%S')
-        else:
-            timestamps['created_at'] = None
-
-        if obj.updated_at:
-            local_updated_time = timezone.localtime(obj.updated_at)
-            timestamps['updated_at'] = local_updated_time.strftime('%Y-%m-%d %H:%M:%S')
-        else:
-            timestamps['updated_at'] = None
-
-        return timestamps
-    
-    def get_user(self, obj):
-        user_info = obj.user
-        if user_info:
-          return {
-            'id': user_info.id,
-            'user_name': user_info.username,
-          }
-        return None
+        fields = ['cart_id','timestamps', 'user']
 
 class CartItemPostSerializer(serializers.ModelSerializer):
     '''
@@ -164,33 +82,7 @@ class CartItemPostSerializer(serializers.ModelSerializer):
         # Bulk create cart items
         CartItem.objects.bulk_create(cart_items)
         return cart
-    
-    def get_response_data(self, cart, cart_items, user):
-        items_data = []
-        for cart_item in cart_items:
-            items_data.append({
-                "variant": {
-                    "variant_id": cart_item.variant.pk,
-                    "variant_name": cart_item.variant.variant_name,
-                    "variant_image": cart_item.variant.images.first().image.url if cart_item.variant.images.exists() else None,
-                    "product": {
-                        "category": cart_item.variant.product.category.category_name,
-                        "name": cart_item.variant.product.product_name,
-                    }
-                },
-                "quantity": cart_item.quantity,
-                "price": cart_item.price,
-                "total_price": cart_item.calculate_price(),
-            })
-        return {
-            'cart_id': cart.cart_id,
-            "created_at": cart.created_at,
-            "updated_at": cart.updated_at,
-            "user": user.username if user else None,
-            "items": items_data
-        }
-    
-    '''
+
     def update_cart_item(self, cart, cart_item_id, quantity):
         """
         Logic to update a CartItem for a given cart and cart_item.
@@ -224,22 +116,22 @@ class CartItemPostSerializer(serializers.ModelSerializer):
         cart_item_instance.quantity = new_quantity
         cart_item_instance.save()  # Save the updated CartItem instance
 
-        return cart_item_instance  
+        return CartItem.objects.filter(cart_id=cart)
     
     def add_item_to_cart(self, cart, variant, quantity):
-
+        print('from serilaizers',variant)
         # Try to get the ProductVariant instance
         try:
             product_variant = ProductVariants.objects.get(id=variant)
         except ProductVariants.DoesNotExist:
-            raise ValueError("Product variant does not exist.")
+            raise ValueError("Product variant does not exist in theh database.")
 
         # Check if the CartItem for this variant already exists in the given cart
-        cart_item = CartItem.objects.filter(cart_id=cart, variant_id=variant).first()
-
+        cart_item = CartItem.objects.filter(cart_id=cart, variant=variant).first()
         MAX_QUANTITY = cart_item.variant.product.maximum_order_quantity
         
-        if cart_item:
+        if not cart_item:
+            print('first_part')
             # If CartItem already exists, update the quantity
             cart_item.quantity += quantity
             if cart_item.quantity > MAX_QUANTITY:
@@ -248,6 +140,7 @@ class CartItemPostSerializer(serializers.ModelSerializer):
             cart_item.save()
             return cart_item
         else:
+            print('second part')
             # If CartItem doesn't exist, create a new CartItem
             cart_item = CartItem.objects.create(
                 cart_id=cart,
@@ -259,41 +152,9 @@ class CartItemPostSerializer(serializers.ModelSerializer):
         cart_item.save()
 
         return cart_item
-    '''
 '''
-def get_cart_response_data(self, cart, cart_items, user):
-        """
-        A helper function to format the cart response in the required structure.
-        This is reused in both GET and POST responses.
-        """
-        items_data = []
-        for cart_item in cart_items:
-            items_data.append({
-                "cart_item_id": cart_item.cart_item_id,
-                "created_at": cart_item.created_at,
-                "variant": {
-                    "variant_id": cart_item.variant.pk,
-                    "variant_title": cart_item.variant.variant_name,
-                    "thumbnail": cart_item.variant.images.first().image.url if cart_item.variant.images.exists() else None,
-                    "item_price": cart_item.price,
-                    "product": {
-                        "id": cart_item.variant.product.id,
-                        "product_name": cart_item.variant.product.product_name,
-                        "product_image": cart_item.variant.product.thumbnail.url if cart_item.variant.product.thumbnail else None
-                    }
-                },
-                "subtotal_amount": {
-                    "quantity": cart_item.quantity,
-                    "item_total": cart_item.calculate_price(),
-                }
-            })
+NOTE: In the response. when i am updating a object it going up and down. 
 
-        return {
-            'cart_id': cart.cart_id,
-            'timestamps': self.get_timestamps(cart),
-            'user': self.get_user(cart),
-            'cart_items': items_data
-        }
 ------------
 Do Not Delete:
 --------------

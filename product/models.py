@@ -136,7 +136,7 @@ class VariantImages(models.Model):
         
 '''
 NOTE:
-Make product variant reverse feature
+
 '''
 
 
